@@ -1,0 +1,108 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class weighbridge_dsip extends CI_Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model(['M_Timbangan_Dsip' => 'weighbridge']);
+    }
+
+    public function index()
+    {
+        adminAccess();
+        $data = [
+            'title' => 'PT. DSIP - Wighbridge In',
+            'no_ref' => $this->weighbridge->get_noRef(),
+            'nm_brg' => $this->weighbridge->get_barang(),
+        ];
+
+        backView('weighbridge_dsip/index', $data);
+    }
+
+    public function ajax_list()
+    {
+
+        $list = $this->weighbridge->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $value) {
+            $netto = (int)$value->brt_1 - (int)$value->brt_2;
+
+            if ($value->tgl_klr == null) {
+                $tgl_klr = "<div class='badge badge-danger'>Unloading</div>";
+            } elseif ($value->tgl_klr) {
+                $tgl_klr = date('Y-m-d', strtotime($value->tgl_klr));
+            }
+            if ($value->jam_klr == null) {
+                $jam_klr = "<div class='badge badge-danger'>Unloading</div>";
+            } elseif ($value->tgl_klr) {
+                $jam_klr = $value->jam_klr;
+            }
+            if ($value->brt_2 == null) {
+                $brt_2 = "<div class='badge badge-danger'>Unloading</div>";
+            } elseif ($value->brt_2) {
+                $brt_2 = number_format($value->brt_2);
+            }
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $value->no_seri;
+            $row[] = date('Y-m-d', strtotime($value->tgl_msk));
+            $row[] = $value->jam_msk;
+            // $row[] = date('Y-m-d', strtotime($value->tgl_klr));
+            $row[] = $tgl_klr;
+            $row[] = $jam_klr;
+            $row[] = $value->no_pol;
+            $row[] = $value->no_con;
+            $row[] = $value->nm_rls;
+            $row[] = $value->no_ref;
+            $row[] = $value->nm_brg;
+            $row[] = number_format($value->brt_1);
+            $row[] = $brt_2;
+            $row[] = number_format($netto);
+            $row[] = number_format($value->tmb_rls);
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->weighbridge->count_all(),
+            "recordsFiltered" => $this->weighbridge->count_filtered(),
+            "data" => $data
+        );
+        //output to json format
+        echo json_encode($output);
+    }
+
+    public function rangeDates()
+    {
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+
+        $return = $this->weighbridge->rangeDate($start_date, $end_date);
+
+        echo json_encode($return);
+    }
+
+    function get_vendor()
+    {
+        $params = $this->input->post('no_ref');
+        $data = $this->weighbridge->get_rls($params);
+        echo json_encode($data);
+    }
+    function get_item()
+    {
+        $params = $this->input->post('nm_rls');
+        $data = $this->weighbridge->get_item($params);
+        echo json_encode($data);
+    }
+}
+
+
+
+/* End of file weighbridge.php */

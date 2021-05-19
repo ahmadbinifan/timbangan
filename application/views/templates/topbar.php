@@ -26,9 +26,8 @@
           } else if ($Hour >= 19 || $Hour <= 4) {
             echo "Good Evening";
           }
-          ?>
-
-          , <?= $this->session->userdata('fullname'); ?></span>
+          ?>,
+          <?= $this->session->userdata('fullname'); ?></span>
         <div class="dropdown-divider"></div>
         <div class="container ml-1">
           <div class="col-2">
@@ -66,7 +65,12 @@
         </div> -->
         <div class="dropdown-divider"></div>
         <div class="container">
-          <div class="col-12">
+          <div class="col-6">
+            <a class="dropdown-item dropdown-footer" href="<?= base_url('account') ?>">
+              <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>Account
+            </a>
+          </div>
+          <div class="col-6">
             <a href="<?= base_url('auth/logout') ?>" class="dropdown-item dropdown-footer">
               <i class="fas fa-sign-out-alt fa-md fa-fw mr-2 text-gray-400"></i>Logout
             </a>

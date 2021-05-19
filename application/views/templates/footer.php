@@ -11,7 +11,8 @@
         <script src="<?= base_url('assets/'); ?>plugins/jquery/jquery.min.js"></script>
         <script src="<?= base_url('assets/'); ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="<?= base_url('assets/'); ?>plugins/sweetalert/sweetalert2.all.min.js"></script>
         <script src="<?= base_url('assets/'); ?>dist/js/adminlte.js"></script>
         <script src="<?= base_url('assets/'); ?>plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="<?= base_url('assets/'); ?>plugins/bigInt/bigInt.min.js"></script>

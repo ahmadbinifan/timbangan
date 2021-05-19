@@ -30,8 +30,10 @@
                                     <th>No.</th>
                                     <th>Fullname</th>
                                     <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Nik</th>
+                                    <th>User Status</th>
+                                    <th>Pdf</th>
+                                    <th>Excel</th>
+                                    <th>Periode</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -69,16 +71,6 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-md-3">Email</label>
-                            <div class="col-6 col-md-3">
-                                <input type="email" class="form-control" name="email" placeholder="ex@indonesia.com" required />
-                            </div>
-                            <label class="col-md-3">NIK</label>
-                            <div class="col-6 col-md-3">
-                                <input type="text" class="form-control" name="nik" placeholder="Nik" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label class="col-md-3 col-6">Username</label>
                             <div class="col-md-3 col-6">
                                 <input type="text" class="form-control" name="username" onkeypress="return /^[0-9A-Z ]*$/i.test(event.key)" placeholder="Username" required />
@@ -86,6 +78,38 @@
                             <label class="col-6 col-md-3">Password</label>
                             <div class="col-6 col-md-3">
                                 <input type="password" name="password" class="form-control" placeholder="Password" required />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Pdf</label>
+                            <div class="col-md-3 col-6">
+                                <select name="pdf">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">Periode</label>
+                            <div class="col-md-3 col-6">
+                                <select name="periode">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Excel</label>
+                            <div class="col-md-3 col-6">
+                                <select name="excel">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">Section</label>
+                            <div class="col-md-3 col-6">
+                                <input type="text" name="section" class="form-control" placeholder="Section">
                             </div>
                         </div>
                         <div class="row float-right">
@@ -124,19 +148,41 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-md-3">Email</label>
-                            <div class="col-6 col-md-3">
-                                <input type="email" class="form-control" name="email" placeholder="ex@indonesia.com" required />
-                            </div>
-                            <label class="col-md-3">NIK</label>
-                            <div class="col-6 col-md-3">
-                                <input type="text" class="form-control" name="nik" placeholder="Nik" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             <label class="col-6 col-md-3">Password</label>
                             <div class="col-6 col-md-9">
                                 <input type="password" name="password" class="form-control" placeholder="Password" required />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Pdf</label>
+                            <div class="col-md-3 col-6">
+                                <select name="pdf" id="pdf">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">Periode</label>
+                            <div class="col-md-3 col-6">
+                                <select name="periode" id="periode">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Excel</label>
+                            <div class="col-md-3 col-6">
+                                <select name="excel" id="excel">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">Section</label>
+                            <div class="col-md-3 col-6">
+                                <input type="text" name="section" class="form-control" placeholder="Section">
                             </div>
                         </div>
                         <div class="row float-right">

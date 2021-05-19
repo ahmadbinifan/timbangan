@@ -23,14 +23,40 @@ class User extends CI_Controller
         $list = $this->user->get_datatables();
         $data_user = array();
         $no = $_POST['start'];
+
         foreach ($list as $value) {
+            if ($value->user_status == 0) {
+                $user_status = "<div class='badge badge-primary'>Admin</div>";
+            } elseif ($value->user_status == 1) {
+                $user_status = "<div class='badge badge-success'>Super Admin</div>";
+            } elseif ($value->user_status == 2) {
+                $user_status = "<div class='badge badge-warning'>Unique Access</div>";
+            }
+            if ($value->pdf == 0) {
+                $pdf = "<div class='badge badge-danger'>No</div>";
+            } elseif ($value->pdf == 1) {
+                $pdf = "<div class='badge badge-success'>Yes</div>";
+            }
+            if ($value->excel == 0) {
+                $excel = "<div class='badge badge-danger'>No</div>";
+            } elseif ($value->excel == 1) {
+                $excel = "<div class='badge badge-success'>Yes</div>";
+            }
+            if ($value->periode == 0) {
+                $periode = "<div class='badge badge-danger'>No</div>";
+            } elseif ($value->periode == 1) {
+                $periode = "<div class='badge badge-success'>Yes</div>";
+            }
+
             $no++;
             $row = array();
             $row[] = $no;
             $row[] = $value->fullname;
             $row[] = $value->username;
-            $row[] = $value->email;
-            $row[] = $value->nik;
+            $row[] = $user_status;
+            $row[] = $pdf;
+            $row[] = $excel;
+            $row[] = $periode;
             $row[] = "
             <div class='row'>
                 <button type='button' class='btn btn-success btn-sm' onclick='get(" . "\"" . $value->id_user . "\")' data-toggle='modal' data-target='#modalEdit' data-backdrop='static' data-keyboard='false' >

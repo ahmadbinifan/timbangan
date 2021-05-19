@@ -20,11 +20,12 @@ function checkLogin()
 function adminAccess()
 {
     $ci = get_instance();
-    if ($ci->session->userdata('username') == "admin" || $ci->session->userdata('username') == "superuser") {
+    if (empty($ci->session->userdata('user_status') == 0) || (empty($ci->session->userdata('user_status') == 1)) || (empty($ci->session->userdata('user_status') == 2))) {
     } else {
         redirect('auth');
     }
 }
+
 function superAccess()
 {
     $ci = get_instance();

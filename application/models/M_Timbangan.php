@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_Timbangan extends CI_Model
 {
-    private $table = 'timbangan';
+    private $table = 'tb_timbangan_dap';
     private $primary = 'no_seri';
-    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'tmb_rls'); //set column field database for datatable orderable
+    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'tmb_gross_rls', 'tmb_tare_rls', 'tmb_netto_rls', 'Split_PO', 'Qty_PO', 'Package_Type', 'Container_Type'); //set column field database for datatable orderable
     var $column_search = array('no_seri', 'nm_brg', 'no_ref'); //set column field database for datatable searchable 
     var $order = array('no_seri' => 'Desc'); // default order 
 
@@ -25,7 +25,7 @@ class M_Timbangan extends CI_Model
             $this->db->where('no_ref', $no_ref);
         }
         if ($no_ref2) {
-            $this->db->like('no_ref', $no_ref2);
+            $this->db->like('no_ref', $no_ref2, 'after');
         }
         if ($this->input->post('nm_brg')) {
             $this->db->where('nm_brg', $this->input->post('nm_brg'));
@@ -129,6 +129,32 @@ class M_Timbangan extends CI_Model
             ->where('no_ref', $id);
         $data = $this->db->get()->result_array();
         return $data;
+    }
+    public function getExcel($id)
+    {
+        $this->db->select('*')
+            ->from($this->table)
+            ->where('no_ref', $id);
+        $data = $this->db->get()->result();
+        return $data;
+    }
+
+    public function getDate($start = null, $end = null, $no_ref = null)
+    {
+        if ($start && $end) {
+            if (!$no_ref) {
+                $con = ['tgl_msk<=' => $start, 'tgl_msk>=' => $end];
+            } elseif ($no_ref) {
+                $con = ['tgl_msk<=' => $start, 'tgl_msk>=' => $end, 'no_ref' => $no_ref];
+            } else {
+                $con = ['no_ref' => $no_ref];
+            }
+        }
+        $this->db->select("*");
+        $this->db->from('timbangan');
+        $this->db->where($con);
+        $query = $this->db->get();
+        return $query->result_array();
     }
     public function get_barang()
     {

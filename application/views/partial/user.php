@@ -120,8 +120,14 @@
                 let form = $('#edit');
                 form.find('input[name=id_user]').val(data.id_user);
                 form.find('input[name=fullname]').val(data.fullname);
-                form.find('input[name=email]').val(data.email);
-                form.find('input[name=nik]').val(data.nik);
+                form.find('input[name=password]').val(data.password);
+                form.find('input[name=section]').val(data.section);
+                form.find('select[name=pdf]').val(data.pdf);
+                form.find('select[name=pdf]').trigger("change");
+                form.find('select[name=excel]').val(data.excel);
+                form.find('select[name=excel]').trigger("change");
+                form.find('select[name=periode]').val(data.periode);
+                form.find('select[name=periode]').trigger("change");
             }
         });
     }
@@ -130,8 +136,13 @@
         let form = $('#create');
         form.find('input[name=fullname]').val(null);
         form.find('input[name=username').val(null);
-        form.find('input[name=email]').val(null);
-        form.find('input[name=nik]').val(null);
+        form.find('input[name=section]').val(null);
+        form.find('select[name=pdf]').val(null);
+        form.find('select[name=pdf]').trigger("change");
+        form.find('select[name=excel]').val(null);
+        form.find('select[name=excel]').trigger("change");
+        form.find('select[name=periode]').val(null);
+        form.find('select[name=periode]').trigger("change");
 
     }
 </script>

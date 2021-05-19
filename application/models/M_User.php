@@ -5,15 +5,13 @@ class M_User extends CI_Model
 {
     private $table = "tb_user";
     private $primary = "id_user";
-    var $column_order = array(null, 'fullname', 'username', 'email', 'nik', 'userstatus', null); //set column field database for datatable orderable
-    // var $column_order = array(null, 'fullname', 'section_name', 'departement_name',  'position_name', null); //set column field database for datatable orderable
-    // var $column_search = array('fullname', 'section_name', 'departement_name', 'position_name'); //set column field database for datatable searchable 
-    var $column_search = array('fullname', 'username', 'email', 'nik', 'userstatus'); //set column field database for datatable searchable 
+    var $column_order = array(null, 'fullname', 'username', 'section', 'user_status', null); //set column field database for datatable orderable
+    var $column_search = array('fullname', 'username', 'section'); //set column field database for datatable searchable 
     var $order = array('id_user' => 'ASC'); // default order 
 
     private function _get_datatables_query()
     {
-       
+
         $this->db->select('*')->from($this->table . " as u");
         $i = 0;
         foreach ($this->column_search as $item) // loop column 

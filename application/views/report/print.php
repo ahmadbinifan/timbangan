@@ -5,6 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
+        @page {
+
+            margin-top: 1cm;
+            margin-bottom: 1cm;
+            margin-left: 2cm;
+            margin-right: 3cm;
+        }
+
+        /* body {
+            margin: 3px;
+        } */
+
+        p {
+            font-size: 10px;
+        }
+
+        p.custom {
+            font-size: 13px;
+        }
+
+        p.form {
+            font-size: 8px;
+            text-align: start;
+            float: right;
+        }
+
+        img {
+            float: left;
+        }
+
         table,
         th {
             border: 1px solid black;
@@ -26,9 +56,9 @@
             page-break-inside: auto
         }
 
-        .bold {
-            font-weight: bold;
+        div.bold {
             font-size: 10px;
+            tab-size: 8;
         }
 
         .border-top {
@@ -47,6 +77,10 @@
 
         }
 
+        table.noborder {
+            width: 100%;
+        }
+
         thead {
             display: table-header-group
         }
@@ -54,18 +88,62 @@
         tfoot {
             display: table-footer-group
         }
+
+        #box1 {
+            width: 80px;
+            font-size: 8px;
+            font-family: 'Times New Roman', Times, serif;
+            height: 40px;
+            background: white;
+            border: solid 1px black;
+            float: right;
+        }
+
+        hr {
+            border-top: 0.5px solid;
+        }
+
+        .tab {
+            display: inline-block;
+            margin-left: 40px;
+        }
     </style>
 
 
     <title>Weighbridge Report</title>
+
+    <p class="form"> Form No : F-WHS-020<br>
+        Issued : Jan 02,2020<br>
+        Rev. No : 01</p>
+
 </head>
 
 <body>
+    <img src="<?= $logo ?>" style="width:80px;height:70px;margin-right:15px;">
+    <div class="">
+        <p style="font-size: 13px;"><b>PT. DOMAS AGROINTI PRIMA <input type="checkbox" style="  line-height: 0.7;" checked><br>
+                PT. DOMAS SAWIT INTI PERDANA </b>
 
-    <h3><?= $title ?></h3>
-    <div class="bold">Commodity : <?= $header['nm_brg'] ?></div>
-    <div class="bold">Conract no. / PO No. : <?= $header['no_ref'] ?> </div>
-    <div class="bold">Supplier : <?= $header['nm_rls'] ?></div>
+            <br>
+            <i style="font-size: 10px;">JL. Access Road Inalum Kuala Tanjung Km. 15<br>
+                Batu Bara - Sumatera Utara, Indonesia <br>
+                Telp. 0622 - 620326, Fax - 0622 - 620327</i>
+        </p>
+    </div>
+
+    <hr style="width:50%;text-align:left;margin-left:0">
+    <center>
+
+        <p style="font-size: medium; font-weight: bold;"><?= $title ?><br><a style="font-size: small;">RECEIVING MATERIAL</a></p>
+
+    </center>
+    <div class="bold">Report Date<span class="tab" style="margin-left: 41px;"> : <?php
+                                                                                    echo date("d M Y");
+                                                                                    ?></div>
+    <div class="bold">Commodity <span class="tab" style="margin-left: 37px;"></span> : <?= $header['nm_brg'] ?></div>
+    <div class="bold">Conract no. / PO No. <span class="tab" style="margin-left: 1px"></span> : <?= $header['no_ref'] ?> </div>
+    <div class="bold">Supplier<span class="tab" style="margin-left: 57px;"> : <?= $header['nm_rls'] ?></div>
+    <div class="bold">Quantity<span class="tab" style="margin-left: 56px;"> : <?= $header['Qty_PO'] ?></div>
     <br>
     <table style="width: 100%;">
         <thead>
@@ -92,8 +170,10 @@
                 <th>(Kg/Ltr)</th>
                 <th>(%)</th>
             </tr>
+            <tr>
+                <th colspan="16"></th>
+            </tr>
         </thead>
-
         <tbody>
             <?php
             $count = 0;
@@ -102,20 +182,22 @@
             $totalKage = 0;
             $totalPers = 0;
             $percent = 0;
+            $topers = 0;
             foreach ($more as $value) {
                 $count = $count + 1;
                 $netto = ($value['brt_1']) - ($value['brt_2']);
-                $kage = $netto - ($value['tmb_rls']);
+                $kage = $netto - $value['tmb_netto_rls'];
 
                 if ($kage > 0) {
-                    $percent =  0 - $kage / ($value['tmb_rls']) * 100;
+                    $percent =  0 - $kage / $value['tmb_netto_rls'] * 100;
                 } else {
-                    $percent = 0 -  $kage / ($value['tmb_rls']) * 100;
+                    $percent = 0 -  $kage /  $value['tmb_netto_rls'] * 100;
                 }
                 $persen = number_format($percent, 2);
                 $totalNetto += ($netto);
-                $totalSupp += ($value['tmb_rls']);
+                $totalSupp +=  $value['tmb_netto_rls'];
                 $totalKage = $totalNetto - $totalSupp;
+
                 if ($totalKage > 0) {
                     $totalPers = 0 - $totalKage / $totalSupp * 100;
                 } else {
@@ -136,15 +218,19 @@
                     <td><?= number_format($value['brt_1']) ?> </td>
                     <td><?= number_format($value['brt_2']) ?> </td>
                     <td><?= number_format($netto) ?></td>
-                    <td><?= number_format($value['tmb_rls']) ?> </td>
+                    <td><?= number_format($value['tmb_netto_rls']) ?> </td>
                     <td><?= $value['temps'] ?> </td>
                     <td><?= $value['density'] ?> </td>
                     <td><?= $kage ?> </td>
                     <td><?= $persen . "%" ?> </td>
                 </tr>
+
         </tbody>
     <?php } ?>
     <tfoot>
+        <tr>
+            <td colspan="16"></td>
+        </tr>
         <tr>
             <td colspan="10" align="left">TOTAL</td>
             <td><?= number_format($totalNetto) ?></td>
@@ -157,6 +243,14 @@
         </tr>
     </tfoot>
     </table>
+    <?php
+    $balanceFooter = 0;
+    $balanceFooter =  $header['Qty_PO'] - $totalNetto;
+    $percentFooter =  $balanceFooter / $totalNetto * 100;
+    ?>
+    <p>Total Received : <?= $totalNetto ?> Kg/Ltr <br>
+        Balance <span class="tab" style="margin-left:26px ;"></span> : <?= $balanceFooter ?> Kg/Ltr <br>
+        Percentage <span class="tab" style="margin-left: 14px;"></span> : <?= $percentFooter ?>% </p>
 </body>
 
 </html>

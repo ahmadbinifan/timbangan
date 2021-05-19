@@ -47,6 +47,11 @@ class weighbridge_out_dsip extends CI_Controller
             } elseif ($value->brt_1) {
                 $brt_1 = $value->brt_1;
             }
+            if ($value->Split_PO == 1) {
+                $split = "<div class='badge badge-success'>Yes</div>";
+            } else {
+                $split = "<div class='badge badge-warning'>No</div>";
+            }
 
             $no++;
             $row = array();
@@ -56,6 +61,7 @@ class weighbridge_out_dsip extends CI_Controller
             $row[] = $value->jam_msk;
             $row[] = $tgl_klr;
             $row[] = $jam_klr;
+            $row[] = number_format($value->Qty_PO);
             $row[] = $value->no_pol;
             $row[] = $value->no_con;
             $row[] = $value->nm_rls;
@@ -64,6 +70,11 @@ class weighbridge_out_dsip extends CI_Controller
             $row[] = number_format($value->brt_2);
             $row[] = number_format($brt_1);
             $row[] = number_format($netto);
+            $row[] = $value->Package_Type;
+            $row[] = $value->Container_Type;
+            $row[] = $split;
+
+
 
             $data[] = $row;
         }

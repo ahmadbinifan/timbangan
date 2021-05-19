@@ -33,23 +33,24 @@
 
                 // computing column Total of the complete result 
                 var Netto = api
-                    .column(13)
-                    .data()
-                    .reduce(function(a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-                var Supplier = api
                     .column(14)
                     .data()
                     .reduce(function(a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
 
+                var NettoSupp = api
+                    .column(17)
+                    .data()
+                    .reduce(function(a, b) {
+                            return intVal(a) + intVal(b);
+                        },
+                        0);
+
                 // Update footer by showing the total with the reference of the column index 
                 $(api.column(0).footer()).html('Total');
-                $(api.column(13).footer()).html(formatNumber(Netto));
-                $(api.column(14).footer()).html(formatNumber(Supplier));
-
+                $(api.column(14).footer()).html(formatNumber(Netto));
+                $(api.column(17).footer()).html(formatNumber(NettoSupp));
             },
             "select": true,
             "processing": true,
@@ -72,102 +73,60 @@
                 "orderable": false,
             }, ],
 
-            // dom: 'Bfrtip',
-            // lengthMenu: [
-            //     [10, 25, 50, -1],
-            //     ['10 File', '25 File', '50 File', 'Show All']
-            // ],
-            buttons: [{
-                    "extend": 'pdf',
-                    "text": '<span class="fas fa-file-pdf">Pdf</span>',
-                    "className": 'btn btn-danger btn-sm',
-                    "footer": 'true',
-                    orientation: 'landscape',
-                    pageSize: 'A4',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ' No PO : ' + c + '\n' + ' Vendor :' + a + '\n' + ' Item :' + b;
-                    }
-                },
-                {
-                    "text": '<span class="fas fa-file-pdf">Pdf2</span>',
-                    "className": 'btn btn-danger btn-sm',
-                    action: function previewData() {
-                        // let type = $('#type').val();
-                        let no_ref = $('#no_ref').val();
-                        let no_ref2 = $('#no_ref2').val();
-                        // let start = $('#start').val();
-                        // let end = $('#end').val();
-
-                        let url = "<?= base_url('report/printByPO/') ?>" + "/" + no_ref + "/";
-                        window.open(url, "_blank");
-                    }
-                },
-                {
-                    "extend": 'csv',
-                    "text": '<span class="fas fa-file-csv">Csv</span>',
-                    "className": 'btn btn-success btn-sm',
-                    "footer": 'true',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
-
+            buttons: [
+                <?php if ($this->session->userdata('pdf') == 1) { ?> {
+                        "text": '<span class="fas fa-file-pdf">Pdf</span>',
+                        "className": 'btn btn-danger btn-sm',
+                        action: function previewData() {
+                            // let type = $('#type').val();
+                            let no_ref = $('#no_ref').val();
+                            // let no_ref2 = $('#no_ref2').val();
+                            // let start = $('#start').val();
+                            // let end = $('#end').val();
+                            let url = "<?= base_url('report/printByPO/') ?>" + no_ref;
+                            window.open(url, "_blank");
+                        }
                     },
-                    filename: function() {
-                        var d = new Date();
-                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                        var bulan = months[d.getMonth()];
-                        var tanggal = d.getDate();
-                        var jam = d.getHours();
-                        var menit = d.getMinutes();
-                        var tahun = d.getFullYear();
-                        return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
+                <?php } ?>,
+                <?php if ($this->session->userdata('excel') == 10) { ?> {
+                        "text": '<span class="fas fa-file-excel">Excel</span>',
+                        "className": 'btn btn-success btn-sm',
+                        action: function previewData() {
+                            // let type = $('#type').val();
+                            let no_ref = $('#no_ref').val();
+                            // let no_ref2 = $('#no_ref2').val();
+                            // let start = $('#start').val();
+                            // let end = $('#end').val();
+                            let url = "<?= base_url('report/phpExcel_wb/') ?>" + no_ref;
+                            window.open(url, "_blank");
+                        }
                     },
-                    // extend: 'csv',
-                    // text: '<i class="fas fa-file-csv fa-1x"> Exportar a CSV</i>'
-                },
-                {
-                    "extend": 'excel',
-                    "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
-                    "className": 'btn btn-success btn-sm fas fa-file-excel',
-                    "footer": 'true',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
+                <?php } ?>
+                <?php if ($this->session->userdata('excel') == 1) { ?> {
+                        "extend": 'excel',
+                        "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
+                        "className": 'btn btn-success btn-sm fas fa-file-excel',
+                        "footer": 'true',
+                        "messageTop": function() {
+                            var a = $('#nm_rls').val();
+                            var b = $('#nm_brg').val();
+                            var c = $('#no_ref').val();
 
-                    },
+                            return 'No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
 
-                    filename: function() {
-                        var d = new Date();
-                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                        var bulan = months[d.getMonth()];
-                        var tanggal = d.getDate();
-                        var jam = d.getHours();
-                        var menit = d.getMinutes();
-                        var tahun = d.getFullYear();
-                        return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
+                        },
+                        filename: function() {
+                            var d = new Date();
+                            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var bulan = months[d.getMonth()];
+                            var tanggal = d.getDate();
+                            var jam = d.getHours();
+                            var menit = d.getMinutes();
+                            var tahun = d.getFullYear();
+                            return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
+                        },
                     },
-                    // extend: 'excel',
-                    // text: '<i class="fas fa-file-excel" aria-hidden="true"> Exportar a EXCEL</i>'
-                },
-                {
-                    "extend": 'copy',
-                    "text": '<span class="glyphicon glyphicon-pencil">Copy</span>',
-                    "className": 'btn btn-primary btn-sm fas fa-file',
-                    "footer": 'true',
-                },
+                <?php } ?>
             ],
             dom: 'Blfrtip',
             lengthMenu: [

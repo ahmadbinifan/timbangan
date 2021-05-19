@@ -28,22 +28,25 @@
 
                 // computing column Total of the complete result 
                 var Netto = api
-                    .column(13)
-                    .data()
-                    .reduce(function(a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-                var Supplier = api
                     .column(14)
                     .data()
                     .reduce(function(a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
+                var totalNetto = api
+                    .column(17)
+                    .data()
+                    .reduce(function(a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+
 
                 // Update footer by showing the total with the reference of the column index 
                 $(api.column(0).footer()).html('Total');
-                $(api.column(13).footer()).html(formatNumber(Netto));
-                $(api.column(14).footer()).html(formatNumber(Supplier));
+                $(api.column(14).footer()).html(formatNumber(Netto));
+                $(api.column(17).footer()).html(formatNumber(totalNetto));
+
 
             },
             "select": true,
@@ -58,70 +61,53 @@
                     data.tgl_msk = $('#start').val();
                     data.tgl_klr = $('#end').val();
                     data.no_ref = $('#no_ref').val();
+                    data.no_ref2 = $('#no_ref2').val();
                     data.nm_brg = $('#nm_brg').val();
-                    data.cstatus = $('#cstatus').val();
                 }
             },
             "columnDefs": [{
                 "targets": [0], //first column / numbering column
                 "orderable": false,
             }, ],
-            buttons: [{
-                    "extend": 'csv',
-                    "text": '<span class="fas fa-file-csv">Csv</span>',
-                    "className": 'btn btn-success btn-sm',
-                    "footer": 'true',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
+            buttons: [
+                <?php if ($this->session->userdata('pdf') == 1) { ?> {
+                        "text": '<span class="fas fa-file-pdf">Pdf</span>',
+                        "className": 'btn btn-danger btn-sm',
+                        action: function PreviewData() {
+                            let no_ref = $('#no_ref').val();
+                            // let no_ref2 = $('#no_ref2').val();
+                            let url = "<?= base_url('report/PrintByPO_dsip/') ?>" + no_ref;
+                            window.open(url, "_blank");
+                        }
+                    },
+                <?php } ?>
+                <?php if ($this->session->userdata('excel') == 1) { ?> {
+                        "extend": 'excel',
+                        "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
+                        "className": 'btn btn-success btn-sm fas fa-file-excel',
+                        "footer": 'true',
+                        "messageTop": function() {
+                            var a = $('#nm_rls').val();
+                            var b = $('#nm_brg').val();
+                            var c = $('#no_ref').val();
+                            var d = $('#no_ref2').val();
+                            var start = $('#start').val();
+                            var end = $('#end').val();
+                            return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + d + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
 
+                        },
+                        filename: function() {
+                            var d = new Date();
+                            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var bulan = months[d.getMonth()];
+                            var tanggal = d.getDate();
+                            var jam = d.getHours();
+                            var menit = d.getMinutes();
+                            var tahun = d.getFullYear();
+                            return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
+                        },
                     },
-                    filename: function() {
-                        var d = new Date();
-                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                        var bulan = months[d.getMonth()];
-                        var tanggal = d.getDate();
-                        var jam = d.getHours();
-                        var menit = d.getMinutes();
-                        var tahun = d.getFullYear();
-                        return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
-                    },
-                },
-                {
-                    "extend": 'excel',
-                    "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
-                    "className": 'btn btn-success btn-sm fas fa-file-excel',
-                    "footer": 'true',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
-
-                    },
-                    filename: function() {
-                        var d = new Date();
-                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                        var bulan = months[d.getMonth()];
-                        var tanggal = d.getDate();
-                        var jam = d.getHours();
-                        var menit = d.getMinutes();
-                        var tahun = d.getFullYear();
-                        return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
-                    },
-                },
-                {
-                    "extend": 'copy',
-                    "text": '<span class="glyphicon glyphicon-pencil">Copy</span>',
-                    "className": 'btn btn-primary btn-sm fas fa-file',
-                    "footer": 'true',
-                },
+                <?php } ?>
             ],
             dom: 'Blfrtip',
             lengthMenu: [
@@ -132,7 +118,6 @@
         });
         table.buttons().container()
             .appendTo('#tableTimbangan .col-md-6:eq(0)');
-
     });
 
     $.fn.dataTable.ext.search.push(
@@ -149,10 +134,10 @@
             return false;
         }
     );
-    $('#btn-filter').click(function() { //button filter event click
-        table.ajax.reload(); //just reload table
+    $('#btn-filter').click(function() {
+        table.ajax.reload();
     });
-    $('#btn-reset').click(function() { //button reset event click
+    $('#btn-reset').click(function() {
         let form = $('#form-filter');
         $('#form-filter')[0].reset();
         form.find('select[name=nm_rls]').val("");
@@ -160,7 +145,7 @@
         form.find('select[name=no_ref]').trigger("change");
         form.find('select[name=nm_rls]').trigger("change");
         form.find('select[name=nm_brg]').trigger("change");
-        table.ajax.reload(); //just reload table
+        table.ajax.reload();
     });
 
     function listVendor() {

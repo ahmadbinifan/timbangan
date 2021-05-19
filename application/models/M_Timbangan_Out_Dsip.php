@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_Timbangan_Out_Dsip extends CI_Model
 {
-    private $table = 'timbangan_dsip';
+    private $table = 'tb_timbangan_dsip';
     private $primary = 'no_seri';
-    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2'); //set column field database for datatable orderable
+    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'Qty_PO'); //set column field database for datatable orderable
     var $column_search = array('no_seri', 'nm_brg', 'no_ref'); //set column field database for datatable searchable 
     var $order = array('no_seri' => 'Desc'); // default order 
 
@@ -142,5 +142,22 @@ class M_Timbangan_Out_Dsip extends CI_Model
 
         $num = $this->db->get($this->table)->num_rows();
         return $num;
+    }
+
+    public function getHead($id)
+    {
+        $this->db->select('*')
+            ->from($this->table)
+            ->where('no_ref', $id);
+        $data = $this->db->get()->row_array();
+        return $data;
+    }
+    public function getMore($id)
+    {
+        $this->db->select('*')
+            ->from($this->table)
+            ->where('no_ref', $id);
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 }

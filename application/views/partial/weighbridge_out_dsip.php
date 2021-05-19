@@ -28,7 +28,7 @@
 
                 // computing column Total of the complete result 
                 var Netto = api
-                    .column(13)
+                    .column(14)
                     .data()
                     .reduce(function(a, b) {
                         return intVal(a) + intVal(b);
@@ -36,7 +36,7 @@
 
                 // Update footer by showing the total with the reference of the column index 
                 $(api.column(0).footer()).html('Total');
-                $(api.column(13).footer()).html(formatNumber(Netto));
+                $(api.column(14).footer()).html(formatNumber(Netto));
 
             },
             "select": true,
@@ -51,75 +51,55 @@
                     data.tgl_msk = $('#start').val();
                     data.tgl_klr = $('#end').val();
                     data.no_ref = $('#no_ref').val();
+                    data.no_ref2 = $('#no_ref2').val();
                     data.nm_brg = $('#nm_brg').val();
-                    data.cstatus = $('#cstatus').val();
                 }
             },
             "columnDefs": [{
                 "targets": [0], //first column / numbering column
                 "orderable": false,
             }, ],
-            buttons: [{
-                    "extend": 'csv',
-                    "text": '<span class="fas fa-file-csv">Csv</span>',
-                    "className": 'btn btn-success btn-sm',
-                    "footer": 'true',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
-
+            buttons: [
+                <?php if ($this->session->userdata('pdf') == 1) { ?> {
+                        "text": '<span class="fas fa-file-pdf">Pdf</span>',
+                        "className": 'btn btn-danger btn-sm',
+                        action: function previewData() {
+                            // let type = $('#type').val();
+                            let no_ref = $('#no_ref').val();
+                            // let no_ref2 = $('#no_ref2').val();
+                            // let start = $('#start').val();
+                            // let end = $('#end').val();
+                            let url = "<?= base_url('report_out/printByContract_dsip/') ?>" + no_ref
+                            window.open(url, "_blank");
+                        }
                     },
-                    filename: function() {
-                        var d = new Date();
-                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                        var bulan = months[d.getMonth()];
-                        var tanggal = d.getDate();
-                        var jam = d.getHours();
-                        var menit = d.getMinutes();
-                        var tahun = d.getFullYear();
-                        return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
+                <?php } ?>
+                <?php if ($this->session->userdata('excel') == 1) { ?> {
+                        "extend": 'excel',
+                        "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
+                        "className": 'btn btn-success btn-sm fas fa-file-excel',
+                        "footer": 'true',
+                        "messageTop": function() {
+                            var a = $('#nm_rls').val();
+                            var b = $('#nm_brg').val();
+                            var c = $('#no_ref').val();
+                            var d = $('#no_ref2').val();
+                            var start = $('#start').val();
+                            var end = $('#end').val();
+                            return 'Period : ' + start + '-' + end + '\n' + ', Contract No. : ' + c + d + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
+                        },
+                        filename: function() {
+                            var d = new Date();
+                            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var bulan = months[d.getMonth()];
+                            var tanggal = d.getDate();
+                            var jam = d.getHours();
+                            var menit = d.getMinutes();
+                            var tahun = d.getFullYear();
+                            return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
+                        },
                     },
-                    // extend: 'csv',
-                    // text: '<i class="fas fa-file-csv fa-1x"> Exportar a CSV</i>'
-                },
-                {
-                    "extend": 'excel',
-                    "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
-                    "className": 'btn btn-success btn-sm fas fa-file-excel',
-                    "footer": 'true',
-                    "messageTop": function() {
-                        var a = $('#nm_rls').val();
-                        var b = $('#nm_brg').val();
-                        var c = $('#no_ref').val();
-                        var start = $('#start').val();
-                        var end = $('#end').val();
-                        return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
-
-                    },
-
-                    filename: function() {
-                        var d = new Date();
-                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                        var bulan = months[d.getMonth()];
-                        var tanggal = d.getDate();
-                        var jam = d.getHours();
-                        var menit = d.getMinutes();
-                        var tahun = d.getFullYear();
-                        return 'Weighbridge - ' + jam + menit + tanggal + bulan + tahun;
-                    },
-                    // extend: 'excel',
-                    // text: '<i class="fas fa-file-excel" aria-hidden="true"> Exportar a EXCEL</i>'
-                },
-                {
-                    "extend": 'copy',
-                    "text": '<span class="glyphicon glyphicon-pencil">Copy</span>',
-                    "className": 'btn btn-primary btn-sm fas fa-file',
-                    "footer": 'true',
-                },
+                <?php } ?>
             ],
             dom: 'Blfrtip',
             lengthMenu: [
@@ -130,10 +110,7 @@
         });
         table.buttons().container()
             .appendTo('#tableTimbangan .col-md-6:eq(0)');
-
-
     });
-
     $.fn.dataTable.ext.search.push(
         function(settings, data, dataIndex) {
             var min = $('.date_range_filter').val();

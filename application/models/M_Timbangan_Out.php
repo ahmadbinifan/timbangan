@@ -3,9 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_Timbangan_Out extends CI_Model
 {
-    private $table = 'timbangan';
+    private $table = 'tb_timbangan_dap';
     private $primary = 'no_seri';
-    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2'); //set column field database for datatable orderable
+    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'Qty_PO'); //set column field database for datatable orderable
     var $column_search = array('no_seri', 'nm_brg', 'no_ref'); //set column field database for datatable searchable 
     var $order = array('no_seri' => 'Desc'); // default order 
 
@@ -14,13 +14,16 @@ class M_Timbangan_Out extends CI_Model
         $start = $this->input->post('tgl_msk');
         $end = $this->input->post('tgl_klr');
         $contract = $this->input->post('no_ref');
+        $no_ref2 = $this->input->post('no_ref2');
         if ($this->input->post('nm_rls')) {
             $this->db->where('nm_rls', $this->input->post('nm_rls'));
         }
         if ($contract) {
-            $this->db->like('no_ref', $contract, 'after');
+            $this->db->where('no_ref', $contract);
         }
-
+        if ($no_ref2) {
+            $this->db->like('no_ref', $no_ref2, 'after');
+        }
         if ($this->input->post('nm_brg')) {
             $this->db->where('nm_brg', $this->input->post('nm_brg'));
         }

@@ -24,27 +24,19 @@
             <div class="card">
                 <div class="card-body">
                     <form id="form-filter" class="form-horizontal">
-                        <div class="row mb-2">
-                            <label class="col-2 col-md-3">Period</label>
-                            <div class="col-3 col-md-3">
-                                <input type="date" class="form-control " name="tgl_msk" id="start" />
+                        <?php if ($this->session->userdata('periode') == 1) { ?>
+                            <div class="row mb-2">
+                                <label class="col-2 col-md-3">Period</label>
+                                <div class="col-3 col-md-3">
+                                    <input type="date" class="form-control " name="tgl_msk" id="start" />
+                                </div>
+                                <label class="col-6 col-md-2">To</label>
+                                <div class="col-md-3 col-6">
+                                    <input type="date" class="form-control" name="tgl_klr" id="end" />
+                                </div>
                             </div>
-                            <label>—</label>
-                            <div class="col-md-3 col-6">
-                                <input type="date" class="form-control" name="tgl_klr" id="end" />
-                            </div>
-                        </div>
-                        <!-- <div class="form-group row mb-2">
-                            <label class="col-6 col-md-3">No. PO</label>
-                            <div class="col-md-3 col-6">
-                                <select type="text" name="no_ref" class="no_ref form-control" id="no_ref" required />
-                                <option value="" selected>Choose No. PO</option>
-                                <?php foreach ($no_ref as $row) { ?>
-                                    <option value="<?= $row->no_ref; ?>"><?= $row->no_ref; ?></option>
-                                <?php } ?>
-                                </select>
-                            </div>
-                        </div> -->
+                        <?php } ?>
+
                         <div class="form-group row mb-2">
                             <label class="col-6 col-md-3">Contract No.</label>
                             <div class="col-md-3 col-6">
@@ -79,8 +71,10 @@
                             </div>
                         </div>
                         <div class="float-right">
-                            <button type="button" id="btn-filter" class="btn btn-primary ">Filter</button>
-                            <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                            <button type="button" id="btn-filter" class="btn btn-primary ">Filter <i class="fas fas fa-sort"></i></button>
+                            <button type="button" id="btn-reset" class="btn btn-default">Reset
+                                <i class="fas fas fa-undo"></i>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -98,13 +92,14 @@
                                 <th>TimeIn</th>
                                 <th>DateOut</th>
                                 <th>TimeOut</th>
+                                <th>Qty</th>
                                 <th>No.Police</th>
                                 <th>No.Container</th>
-                                <th>Vendor</th>
+                                <th>Customer</th>
                                 <th>No.Contract</th>
-                                <th>ItemName</th>
+                                <th>Commodity</th>
                                 <th>Gross</th>
-                                <th>Tara</th>
+                                <th>Tare</th>
                                 <th>Netto</th>
                             </tr>
                         </thead>
@@ -112,6 +107,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

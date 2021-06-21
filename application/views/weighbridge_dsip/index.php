@@ -24,18 +24,6 @@
             <div class="card">
                 <div class="card-body">
                     <form id="form-filter" class="form-horizontal">
-                        <?php if ($this->session->userdata('periode') == 1) { ?>
-                            <div class="row mb-2">
-                                <label class="col-2 col-md-3">Period</label>
-                                <div class="col-3 col-md-3">
-                                    <input type="date" class="form-control " name="tgl_msk" id="start" />
-                                </div>
-                                <label class="col-6 col-md-2">To</label>
-                                <div class="col-md-3 col-6">
-                                    <input type="date" class="form-control" name="tgl_klr" id="end" />
-                                </div>
-                            </div>
-                        <?php } ?>
                         <div class="form-group row mb-2">
                             <label class="col-6 col-md-3">No. PO</label>
                             <div class="col-md-3 col-6">
@@ -46,7 +34,6 @@
                                 <?php } ?>
                                 </select>
                             </div>
-
                         </div>
                         <div class="form-group row mb-2">
                             <label class="col-md-3 col-6" for="Vendor">Vendor</label>
@@ -72,7 +59,7 @@
                         </div>
                         <div class="float-right">
                             <button type="button" id="btn-filter" class="btn btn-primary ">Filter
-                                <i class="fas fas fa-sort"></i>
+                                <i class="fas fas fa-filter"></i>
                             </button>
                             <button type="button" id="btn-reset" class="btn btn-default">Reset
                                 <i class="fas fas fa-undo"></i>
@@ -109,12 +96,14 @@
                                 <th>PackageType</th>
                                 <th>ContainerType</th>
                                 <th>Split</th>
+                                <th>No.SplitPO</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

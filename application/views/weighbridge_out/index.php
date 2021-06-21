@@ -60,7 +60,7 @@
                         </div>
                         <div class="float-right">
                             <button type="button" id="btn-filter" class="btn btn-primary ">Filter
-                                <i class="fas fas fa-sort"></i>
+                                <i class="fas fas fa-filter"></i>
                             </button>
                             <button type="button" id="btn-reset" class="btn btn-default">Reset
                                 <i class="fas fas fa-undo"></i>
@@ -95,12 +95,14 @@
                                 <th>Gross</th>
                                 <th>Netto</th>
                                 <th>Split</th>
+                                <th>No.SplitPO</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

@@ -70,11 +70,11 @@
                         "className": 'btn btn-success btn-sm',
                         action: function previewData() {
                             // let type = $('#type').val();
-                            // let no_ref = $('#no_ref').val();
+                            let no_ref = $('#no_ref').val();
                             // let no_ref2 = $('#no_ref2').val();
                             let start = $('#start').val();
                             let end = $('#end').val();
-                            let url = "<?= base_url('report_out/phpExcel_wb_dsip_priode/') ?>" + start + "/" + end;
+                            let url = "<?= base_url('report_out/phpExcel_wb_dsip_priode/') ?>" + start + "/" + end + "/" + no_ref;
                             window.open(url, "_blank");
                         }
                     },
@@ -84,11 +84,11 @@
                         "className": 'btn btn-danger btn-sm',
                         action: function previewData() {
                             // let type = $('#type').val();
-                            // let no_ref = $('#no_ref').val();
+                            let no_ref = $('#no_ref').val();
                             // let no_ref2 = $('#no_ref2').val();
                             let start = $('#start').val();
                             let end = $('#end').val();
-                            let url = "<?= base_url('report_out/printByPriodeDsip/') ?>" + start + "/" + end;
+                            let url = "<?= base_url('report_out/printByPriodeDsip/') ?>" + start + "/" + end + "/" + no_ref;
                             window.open(url, "_blank");
                         }
                     },
@@ -102,10 +102,9 @@
                             var a = $('#nm_rls').val();
                             var b = $('#nm_brg').val();
                             var c = $('#no_ref').val();
-                            var d = $('#no_ref2').val();
                             var start = $('#start').val();
                             var end = $('#end').val();
-                            return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + d + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
+                            return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
 
                         },
                         filename: function() {
@@ -186,6 +185,31 @@
                 }
 
 
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
+    }
+
+    function listPO() {
+        let select = $("#form-filter").find('select[name=no_ref]');
+        $.ajax({
+            url: "<?= base_url('weighbridge_priode_dsip_out/get_po') ?>",
+            method: "post",
+            dataType: "json",
+            data: {
+                tgl_msk: $('#start').val(),
+                tgl_klr: $('#end').val()
+            },
+            success: function(data) {
+                if (data) {
+                    let html = '<option value="">Choose PO No. (Optional)</option>';
+                    $.each(data, function(index, value) {
+                        html += '"<option value="' + value.no_ref + '">' + value.no_ref + '</option>';
+                    });
+                    $(select).html(html);
+                }
             },
             error: function(e) {
                 console.log(e);

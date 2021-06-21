@@ -82,6 +82,16 @@
                     },
                 <?php } ?>
                 <?php if ($this->session->userdata('excel') == 1) { ?> {
+                        "text": '<span class="fas fa-file-excel">Excel</span>',
+                        "className": 'btn btn-success btn-sm',
+                        action: function previewData() {
+                            let no_ref = $('#no_ref').val();
+                            let url = "<?= base_url('report/phpExcel_wb_dsip/') ?>" + no_ref;
+                            window.open(url, "_blank");
+                        }
+                    },
+                <?php } ?>
+                <?php if ($this->session->userdata('excel') == 1) { ?> {
                         "extend": 'excel',
                         "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
                         "className": 'btn btn-success btn-sm fas fa-file-excel',
@@ -90,10 +100,9 @@
                             var a = $('#nm_rls').val();
                             var b = $('#nm_brg').val();
                             var c = $('#no_ref').val();
-                            var d = $('#no_ref2').val();
                             var start = $('#start').val();
                             var end = $('#end').val();
-                            return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + d + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
+                            return 'Period : ' + start + '-' + end + '\n' + ', No PO : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
 
                         },
                         filename: function() {

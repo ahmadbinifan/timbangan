@@ -128,6 +128,14 @@
                 form.find('select[name=excel]').trigger("change");
                 form.find('select[name=periode]').val(data.periode);
                 form.find('select[name=periode]').trigger("change");
+                form.find('select[name=dap]').val(data.dap);
+                form.find('select[name=dap]').trigger("change");
+                form.find('select[name=dsip]').val(data.dsip);
+                form.find('select[name=dsip]').trigger("change");
+                form.find('select[name=penerimaan]').val(data.penerimaan);
+                form.find('select[name=penerimaan]').trigger("change");
+                form.find('select[name=pengeluaran]').val(data.pengeluaran);
+                form.find('select[name=pengeluaran]').trigger("change");
             }
         });
     }
@@ -143,6 +151,14 @@
         form.find('select[name=excel]').trigger("change");
         form.find('select[name=periode]').val(null);
         form.find('select[name=periode]').trigger("change");
+        form.find('select[name=dap]').val(null);
+        form.find('select[name=dap]').trigger("change");
+        form.find('select[name=dsip]').val(null);
+        form.find('select[name=dsip]').trigger("change");
+        form.find('select[name=penerimaan]').val(null);
+        form.find('select[name=penerimaan]').trigger("change");
+        form.find('select[name=pengeluaran]').val(null);
+        form.find('select[name=pengeluaran]').trigger("change");
 
     }
 </script>

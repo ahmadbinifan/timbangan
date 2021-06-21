@@ -123,10 +123,7 @@
         }
     </style>
 
-
     <title>Weighbridge Report</title>
-
-
 
 </head>
 
@@ -159,11 +156,11 @@
                 <th rowspan="2">CUSTOMER</th>
                 <th rowspan="2">CONTRACT NO.</th>
                 <th rowspan="2" style="width:100px">COMMODITY</th>
-                <th rowspan="2">TRANSPORT</th>
                 <th rowspan="2">CONTAINER NO.</th>
                 <th colspan="3">WEIGHBRIDGE</th>
                 <th rowspan="2" style="width: 20px;">PACKAGE</th>
                 <th rowspan="2" style="width: 10px;">CONT.</th>
+                <th rowspan="2">SPLIT PO</th>
 
             </tr>
             <tr>
@@ -196,13 +193,13 @@
                     <td><?= $value['nm_rls'] ?></td>
                     <td><?= $value['no_ref'] ?></td>
                     <td><?= $value['nm_brg'] ?></td>
-                    <td><?= $value['transport'] ?></td>
                     <td><?= $value['no_seal'] ?></td>
                     <td><?= number_format($value['brt_1']) ?></td>
                     <td><?= number_format($value['brt_2']) ?></td>
                     <td><?= number_format($netto) ?></td>
                     <td><?= $value['Package_Type'] ?></td>
                     <td><?= $value['Container_Type'] ?></td>
+                    <td><?= $value['NoPO_Split'] ?></td>
                 </tr>
         </tbody>
     <?php } ?>

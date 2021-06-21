@@ -164,6 +164,7 @@
                 <th colspan="3">WEIGHBRIDGE</th>
                 <th rowspan="2" style="width: 20px;">PACKAGE</th>
                 <th rowspan="2" style="width: 10px;">CONT.</th>
+                <th rowspan="2">SPLIT PO</th>
 
             </tr>
             <tr>
@@ -174,7 +175,7 @@
                 <th>NETTO</th>
             </tr>
             <tr>
-                <th colspan="16"></th>
+                <th colspan="17"></th>
             </tr>
         </thead>
         <tbody>
@@ -203,6 +204,7 @@
                     <td><?= number_format($netto) ?></td>
                     <td><?= $value['Package_Type'] ?></td>
                     <td><?= $value['Container_Type'] ?></td>
+                    <td><?= $value['NoPO_Split'] ?></td>
                 </tr>
         </tbody>
     <?php } ?>

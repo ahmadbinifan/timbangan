@@ -73,6 +73,7 @@ class weighbridge_out extends CI_Controller
             $row[] = $brt_2;
             $row[] = number_format($netto);
             $row[] = $split_po;
+            $row[] = $value->NoPO_Split;
 
             $data[] = $row;
         }

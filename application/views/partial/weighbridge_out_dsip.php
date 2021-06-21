@@ -28,7 +28,7 @@
 
                 // computing column Total of the complete result 
                 var Netto = api
-                    .column(14)
+                    .column(16)
                     .data()
                     .reduce(function(a, b) {
                         return intVal(a) + intVal(b);
@@ -36,7 +36,7 @@
 
                 // Update footer by showing the total with the reference of the column index 
                 $(api.column(0).footer()).html('Total');
-                $(api.column(14).footer()).html(formatNumber(Netto));
+                $(api.column(16).footer()).html(formatNumber(Netto));
 
             },
             "select": true,
@@ -75,6 +75,16 @@
                     },
                 <?php } ?>
                 <?php if ($this->session->userdata('excel') == 1) { ?> {
+                        "text": '<span class="fas fa-file-excel">Excel</span>',
+                        "className": 'btn btn-success btn-sm',
+                        action: function previewData() {
+                            let no_ref = $('#no_ref').val();
+                            let url = "<?= base_url('report_out/phpExcel_wb_dsip/') ?>" + no_ref;
+                            window.open(url, "_blank");
+                        }
+                    },
+                <?php } ?>
+                <?php if ($this->session->userdata('excel') == 1) { ?> {
                         "extend": 'excel',
                         "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
                         "className": 'btn btn-success btn-sm fas fa-file-excel',
@@ -83,10 +93,9 @@
                             var a = $('#nm_rls').val();
                             var b = $('#nm_brg').val();
                             var c = $('#no_ref').val();
-                            var d = $('#no_ref2').val();
-                            var start = $('#start').val();
-                            var end = $('#end').val();
-                            return 'Period : ' + start + '-' + end + '\n' + ', Contract No. : ' + c + d + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
+                            // var start = $('#start').val();
+                            // var end = $('#end').val();
+                            return ' Contract No. : ' + c + '\n' + ', Vendor :' + a + '\n' + ', Item :' + b;
                         },
                         filename: function() {
                             var d = new Date();

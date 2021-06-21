@@ -25,27 +25,47 @@ class User extends CI_Controller
         $no = $_POST['start'];
 
         foreach ($list as $value) {
-            if ($value->user_status == 0) {
-                $user_status = "<div class='badge badge-primary'>Admin</div>";
-            } elseif ($value->user_status == 1) {
-                $user_status = "<div class='badge badge-success'>Super Admin</div>";
-            } elseif ($value->user_status == 2) {
-                $user_status = "<div class='badge badge-warning'>Unique Access</div>";
-            }
+            // if ($value->user_status == 0) {
+            //     $user_status = "<div class='badge badge-primary'>Admin</div>";
+            // } elseif ($value->user_status == 1) {
+            //     $user_status = "<div class='badge badge-success'>Super Admin</div>";
+            // } elseif ($value->user_status == 2) {
+            //     $user_status = "<div class='badge badge-warning'>Unique Access</div>";
+            // }
             if ($value->pdf == 0) {
-                $pdf = "<div class='badge badge-danger'>No</div>";
+                $pdf = "<div class='badge badge-danger'><i class='fas fa-times-circle'></i></div>";
             } elseif ($value->pdf == 1) {
-                $pdf = "<div class='badge badge-success'>Yes</div>";
+                $pdf = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
             }
             if ($value->excel == 0) {
-                $excel = "<div class='badge badge-danger'>No</div>";
+                $excel = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
             } elseif ($value->excel == 1) {
-                $excel = "<div class='badge badge-success'>Yes</div>";
+                $excel = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
             }
             if ($value->periode == 0) {
-                $periode = "<div class='badge badge-danger'>No</div>";
+                $periode = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
             } elseif ($value->periode == 1) {
-                $periode = "<div class='badge badge-success'>Yes</div>";
+                $periode = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
+            }
+            if ($value->dap == 0) {
+                $dap = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
+            } elseif ($value->dap == 1) {
+                $dap = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
+            }
+            if ($value->dsip == 0) {
+                $dsip = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
+            } elseif ($value->dsip == 1) {
+                $dsip = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
+            }
+            if ($value->penerimaan == 0) {
+                $penerimaan = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
+            } elseif ($value->penerimaan == 1) {
+                $penerimaan = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
+            }
+            if ($value->pengeluaran == 0) {
+                $pengeluaran = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
+            } elseif ($value->pengeluaran == 1) {
+                $pengeluaran = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
             }
 
             $no++;
@@ -53,10 +73,14 @@ class User extends CI_Controller
             $row[] = $no;
             $row[] = $value->fullname;
             $row[] = $value->username;
-            $row[] = $user_status;
+            $row[] = $value->section;
             $row[] = $pdf;
             $row[] = $excel;
             $row[] = $periode;
+            $row[] = $dap;
+            $row[] = $dsip;
+            $row[] = $penerimaan;
+            $row[] = $pengeluaran;
             $row[] = "
             <div class='row'>
                 <button type='button' class='btn btn-success btn-sm' onclick='get(" . "\"" . $value->id_user . "\")' data-toggle='modal' data-target='#modalEdit' data-backdrop='static' data-keyboard='false' >

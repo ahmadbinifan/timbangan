@@ -67,12 +67,13 @@ class weighbridge_out_dsip extends CI_Controller
             $row[] = $value->nm_rls;
             $row[] = $value->no_ref;
             $row[] = $value->nm_brg;
+            $row[] = $value->Package_Type;
+            $row[] = $value->Container_Type;
             $row[] = number_format($value->brt_2);
             $row[] = number_format($brt_1);
             $row[] = number_format($netto);
-            $row[] = $value->Package_Type;
-            $row[] = $value->Container_Type;
             $row[] = $split;
+            $row[] = $value->NoPO_Split;
 
 
 

@@ -155,14 +155,16 @@
                 <th rowspan="2" style="width: 100px;">SEAL NO.</th>
                 <th rowspan="2" style="width: 130px;">TRANSPORTATION</th>
                 <th rowspan="2">NETTO (KG)</th>
-                <th rowspan="2">REMARK</th>
+                <th rowspan="2">PACKAGE TYPE</th>
+                <th rowspan="2">CONTAINER TYPE</th>
+                <th rowspan="2">SPLIT PO</th>
             </tr>
             <tr>
                 <th>IN</th>
                 <th>OUT</th>
             </tr>
             <tr>
-                <th colspan="11"></th>
+                <th colspan="13"></th>
             </tr>
         </thead>
         <tbody>
@@ -185,28 +187,46 @@
                     <td><?= $value['no_seal'] ?></td>
                     <td><?= $value['transport'] ?></td>
                     <td><?= number_format($netto) ?></td>
-                    <td></td>
+                    <td><?= $value['Package_Type'] ?></td>
+                    <td><?= $value['Container_Type'] ?></td>
+                    <td><?= $value['NoPO_Split'] ?></td>
                 </tr>
         </tbody>
     <?php } ?>
     <tfoot>
         <tr>
-            <td colspan="11"></td>
+            <td colspan="13"></td>
         </tr>
         <tr>
             <td colspan="9" style="text-align: left; font-weight :bold"><span class="tab"></span> TOTAL</td>
-            <td colspan="2"><?= number_format($total) ?> Kg</td>
+            <td colspan="4"><?= number_format($total) ?> Kg</td>
         </tr>
     </tfoot>
     </table>
     <?php
     $balanceFooter = 0;
-    $balanceFooter =  $header['Qty_PO'] - $total;
+    $balanceFooter =  $total - $header['Qty_PO'];
     $percentFooter =  $balanceFooter / $total * 100;
     ?>
     <p>Total <span class="tab" style="margin-left:38px;"></span> : <?= $total ?> Kg/Ltr <br>
-        Balance <span class="tab" style="margin-left:26px ;"></span> : <?= $balanceFooter ?> Kg/Ltr <br>
-        Percentage <span class="tab" style="margin-left: 14px;"></span> : <?= number_format($percentFooter, 2) ?>% </p>
+        Balance <span class="tab" style="margin-left:26px ;"></span> : <?= number_format(abs($balanceFooter)) ?> Kg/Ltr
+        <?php if ($balanceFooter < 0) {
+            echo "(Less)";
+        } elseif ($balanceFooter == 0) {
+            echo "";
+        } else {
+            echo "(Over)";
+        } ?>
+        <br>
+        Percentage <span class="tab" style="margin-left: 14px;"></span> : <?= number_format(abs($percentFooter), 2) ?>%
+        <?php if ($percentFooter < 0) {
+            echo "(Less)";
+        } elseif ($percentFooter == 0) {
+            echo "";
+        } else {
+            echo  "(Over)";
+        } ?>
+    </p>
 </body>
 
 </html>

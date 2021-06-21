@@ -9,8 +9,8 @@
 
             margin-top: 1cm;
             margin-bottom: 1cm;
-            margin-left: 2cm;
-            margin-right: 3cm;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
         }
 
         #footer {
@@ -159,6 +159,7 @@
                 <th colspan="3">WEIGHBRIDGE SUPPLIER</th>
                 <th colspan="3">WEIGHBRIDGE PT.DAP</th>
                 <th colspan="2">Balance(Kg/Ltr)</th>
+                <th rowspan="2">SPLIT PO</th>
             </tr>
             <tr>
                 <th>IN</th>
@@ -173,7 +174,7 @@
                 <th>(%)</th>
             </tr>
             <tr>
-                <th colspan="17"></th>
+                <th colspan="18"></th>
             </tr>
         </thead>
         <tbody>
@@ -209,6 +210,7 @@
                     <td><?= number_format($netto) ?></td>
                     <td><?= $kage ?></td>
                     <td><?= $persen . "%" ?></td>
+                    <td><?= $value['NoPO_Split'] ?></td>
                 </tr>
         </tbody>
     <?php } ?>

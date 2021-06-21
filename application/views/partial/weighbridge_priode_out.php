@@ -69,11 +69,11 @@
                         "className": 'btn btn-success btn-sm',
                         action: function previewData() {
                             // let type = $('#type').val();
-                            // let no_ref = $('#no_ref').val();
+                            let no_ref = $('#no_ref').val();
                             // let no_ref2 = $('#no_ref2').val();
                             let start = $('#start').val();
                             let end = $('#end').val();
-                            let url = "<?= base_url('report_out/phpExcel_wb_priode/') ?>" + start + "/" + end;
+                            let url = "<?= base_url('report_out/phpExcel_wb_priode/') ?>" + start + "/" + end + "/" + no_ref;
                             window.open(url, "_blank");
                         }
                     },
@@ -83,11 +83,11 @@
                         "className": 'btn btn-danger btn-sm',
                         action: function previewData() {
                             // let type = $('#type').val();
-                            // let no_ref = $('#no_ref').val();
+                            let no_ref = $('#no_ref').val();
                             // let no_ref2 = $('#no_ref2').val();
                             let start = $('#start').val();
                             let end = $('#end').val();
-                            let url = "<?= base_url('report_out/printByPriode/') ?>" + start + "/" + end;
+                            let url = "<?= base_url('report_out/printByPriode/') ?>" + start + "/" + end + "/" + no_ref;
                             window.open(url, "_blank");
                         }
                     },
@@ -185,6 +185,31 @@
                 }
 
 
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
+    }
+
+    function listPO() {
+        let select = $("#form-filter").find('select[name=no_ref]');
+        $.ajax({
+            url: "<?= base_url('weighbridge_priode_out/get_po') ?>",
+            method: "post",
+            dataType: "json",
+            data: {
+                tgl_msk: $('#start').val(),
+                tgl_klr: $('#end').val()
+            },
+            success: function(data) {
+                if (data) {
+                    let html = '<option value="">Choose PO No. (Optional)</option>';
+                    $.each(data, function(index, value) {
+                        html += '"<option value="' + value.no_ref + '">' + value.no_ref + '</option>';
+                    });
+                    $(select).html(html);
+                }
             },
             error: function(e) {
                 console.log(e);

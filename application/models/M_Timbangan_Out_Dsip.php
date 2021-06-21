@@ -5,7 +5,7 @@ class M_Timbangan_Out_Dsip extends CI_Model
 {
     private $table = 'tb_timbangan_dsip';
     private $primary = 'no_seri';
-    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'Qty_PO'); //set column field database for datatable orderable
+    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'Qty_PO', 'NoPO_Split'); //set column field database for datatable orderable
     var $column_search = array('no_seri', 'nm_brg', 'no_ref'); //set column field database for datatable searchable 
     var $order = array('no_seri' => 'Desc'); // default order 
 
@@ -86,7 +86,7 @@ class M_Timbangan_Out_Dsip extends CI_Model
     public function get_noRef()
     {
         $this->db->distinct();
-        $this->db->select('no_ref')->from($this->table)->order_by('no_ref', 'asc')->where('ctatus', "KLR");
+        $this->db->select('no_ref')->from($this->table)->order_by('no_ref', 'desc')->where('ctatus', "KLR");
         $query = $this->db->get();
         $return = $query->result();
         return $return;
@@ -100,7 +100,7 @@ class M_Timbangan_Out_Dsip extends CI_Model
     public function get_barang()
     {
         $this->db->distinct();
-        $this->db->select('nm_brg')->from($this->table)->order_by('nm_brg', 'asc')->where('ctatus', "MSK");
+        $this->db->select('nm_brg')->from($this->table)->order_by('nm_brg', 'desc')->where('ctatus', "MSK");
         $query = $this->db->get();
         $return = $query->result();
         return $return;
@@ -158,6 +158,26 @@ class M_Timbangan_Out_Dsip extends CI_Model
             ->from($this->table)
             ->where('no_ref', $id);
         $data = $this->db->get()->result_array();
+        return $data;
+    }
+    public function get_relate($start, $end)
+    {
+        $this->db->select('no_ref')
+            ->from($this->table)
+            ->distinct()
+            ->order_by('no_seri', 'desc');
+        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('ctatus', 'KLR');
+        $result = $this->db->get()->result_array();
+        return $result;
+    }
+    public function getExcel($id)
+    {
+        $this->db->select('*')
+            ->from($this->table)
+            ->where('no_ref', $id);
+        $data = $this->db->get()->result();
         return $data;
     }
 }

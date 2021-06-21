@@ -73,6 +73,7 @@ class Weighbridge_priode_out extends CI_Controller
             $row[] = number_format($value->brt_1);
             $row[] = number_format($netto);
             $row[] = $split_po;
+            $row[] = $value->NoPO_Split;
             // $row[] = $cstatus;
             // $row[] = $completion;
 
@@ -105,6 +106,13 @@ class Weighbridge_priode_out extends CI_Controller
         $data = $this->weighbridge->get_rls($params);
         echo json_encode($data);
     }
-}
 
+    public function get_po()
+    {
+        $start = $this->input->post('tgl_msk');
+        $end = $this->input->post('tgl_klr');
+        $data = $this->weighbridge->get_relate($start, $end);
+        echo json_encode($data);
+    }
+}
 /* End of file Weighbridge_priode.php */

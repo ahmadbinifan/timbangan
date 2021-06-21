@@ -77,6 +77,7 @@ class Weighbridge_priode extends CI_Controller
             $row[] = $value->Package_Type;
             $row[] = $value->Container_Type;
             $row[] = $split_po;
+            $row[] = $value->NoPO_Split;
             // $row[] = $cstatus;
             // $row[] = $completion;
 
@@ -107,6 +108,14 @@ class Weighbridge_priode extends CI_Controller
     {
         $params = $this->input->post('no_ref');
         $data = $this->weighbridge->get_rls($params);
+        echo json_encode($data);
+    }
+
+    public function get_po()
+    {
+        $start = $this->input->post('tgl_msk');
+        $end = $this->input->post('tgl_klr');
+        $data = $this->weighbridge->get_relate($start, $end);
         echo json_encode($data);
     }
 }

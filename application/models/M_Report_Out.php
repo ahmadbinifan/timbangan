@@ -47,38 +47,83 @@ class M_Report_Out extends CI_Model
         return $this->db->select('nm_rls , nm_brg')->where('no_ref', $params)->get($this->table)->row();
     }
 
-    public function filterPriode($start, $end)
+    public function filterPriode($start, $end, $no_ref)
     {
-        $this->db->select('*')->from($this->table);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        if ($start != "" && $end != "") {
+            if ($no_ref != "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        } elseif ($start == "" && $end == "") {
+            if ($no_ref != "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        }
+        $this->db->select('*')->from($this->table)->where($cond);
         $this->db->where('ctatus', 'KLR');
         $result = $this->db->get()->result_array();
         return $result;
     }
-    public function filterPriode_excel($start, $end)
+    public function filterPriode_excel($start, $end, $no_ref)
     {
-        $this->db->select('*')->from($this->table);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        if ($start != "" && $end != "") {
+            if ($no_ref != "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        } elseif ($start == "" && $end == "") {
+            if ($no_ref != "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "/") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        }
+        $this->db->select('*')->from($this->table)->where($cond);
         $this->db->where('ctatus', 'KLR');
         $result = $this->db->get()->result();
         return $result;
     }
-    public function filterPriode_excel_dsip($start, $end)
+    public function filterPriode_excel_dsip($start, $end, $no_ref)
     {
-        $this->db->select('*')->from($this->dsip);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        if ($start != "" && $end != "") {
+            if ($no_ref != "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        } elseif ($start == "" && $end == "") {
+            if ($no_ref != "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        }
+        $this->db->select('*')->from($this->dsip)->where($cond);
         $this->db->where('ctatus', 'KLR');
         $result = $this->db->get()->result();
         return $result;
     }
-    public function filterPriode_dsip($start, $end)
+    public function filterPriode_dsip($start, $end, $no_ref)
     {
-        $this->db->select('*')->from($this->dsip);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+
+        if ($start != "" && $end != "") {
+            if ($no_ref != "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        } elseif ($start == "" && $end == "") {
+            if ($no_ref != "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+            } elseif ($no_ref == "////") {
+                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+            }
+        }
+        $this->db->select('*')->from($this->dsip)->where($cond);
         $this->db->where('ctatus', 'KLR');
         $result = $this->db->get()->result_array();
         return $result;

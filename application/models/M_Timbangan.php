@@ -5,7 +5,7 @@ class M_Timbangan extends CI_Model
 {
     private $table = 'tb_timbangan_dap';
     private $primary = 'no_seri';
-    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'tmb_gross_rls', 'tmb_tare_rls', 'tmb_netto_rls', 'Split_PO', 'Qty_PO', 'Package_Type', 'Container_Type'); //set column field database for datatable orderable
+    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'tmb_gross_rls', 'tmb_tare_rls', 'tmb_netto_rls', 'Split_PO', 'NoPO_Split', 'Qty_PO', 'Package_Type', 'Container_Type', null); //set column field database for datatable orderable
     var $column_search = array('no_seri', 'nm_brg', 'no_ref'); //set column field database for datatable searchable 
     var $order = array('no_seri' => 'Desc'); // default order 
 
@@ -93,7 +93,7 @@ class M_Timbangan extends CI_Model
     public function get_noRef()
     {
         $this->db->distinct();
-        $this->db->select('no_ref')->from($this->table)->order_by('no_ref', 'asc')->where('ctatus', "MSK");
+        $this->db->select('no_ref')->from($this->table)->order_by('no_ref', 'desc')->where('ctatus', "MSK");
         $query = $this->db->get();
         $return = $query->result();
         return $return;
@@ -102,6 +102,18 @@ class M_Timbangan extends CI_Model
     public function get_rls($params)
     {
         return $this->db->select('nm_rls , nm_brg')->where('no_ref', $params)->get($this->table)->row();
+    }
+    public function get_relate($start, $end)
+    {
+        $this->db->select('no_ref')
+            ->from($this->table)
+            ->distinct()
+            ->order_by('no_seri', 'desc');
+        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('ctatus', 'MSK');
+        $result = $this->db->get()->result_array();
+        return $result;
     }
 
     public function get_ref($params)
@@ -159,7 +171,7 @@ class M_Timbangan extends CI_Model
     public function get_barang()
     {
         $this->db->distinct();
-        $this->db->select('nm_brg')->from($this->table)->order_by('nm_brg', 'asc')->where('ctatus', "MSK");
+        $this->db->select('nm_brg')->from($this->table)->order_by('nm_brg', 'desc')->where('ctatus', "MSK");
         $query = $this->db->get();
         $return = $query->result();
         return $return;

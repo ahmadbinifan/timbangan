@@ -14,9 +14,9 @@
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <span class="dropdown-item dropdown-header">
           <?php
-          // I'm India so my timezone is Asia/Calcutta
+          // Clock in indonesia
           date_default_timezone_set('Asia/Jakarta');
-          // 24-hour format of an hour without leading zeros (0 through 23)
+          // 24 Hours
           $Hour = date('G');
 
           if ($Hour >= 5 && $Hour <= 11) {
@@ -31,7 +31,7 @@
         <div class="dropdown-divider"></div>
         <div class="container ml-1">
           <div class="col-2">
-            <i class="fas fa-house-user mr-2"> </i>
+            <i class="fas fa-house-user mr-2"></i>
           </div>
           <div class="col-10 text-right">
             <p> <?= $this->session->userdata('username'); ?></p>

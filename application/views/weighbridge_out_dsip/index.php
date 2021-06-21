@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">PT. DSIP - Weighbridge Out</h1>
+                    <h1 class="m-0 text-tea">PT. DSIP - Weighbridge Out</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -24,19 +24,6 @@
             <div class="card">
                 <div class="card-body">
                     <form id="form-filter" class="form-horizontal">
-                        <?php if ($this->session->userdata('periode') == 1) { ?>
-                            <div class="row mb-2">
-                                <label class="col-2 col-md-3">Period</label>
-                                <div class="col-3 col-md-3">
-                                    <input type="date" class="form-control " name="tgl_msk" id="start" />
-                                </div>
-                                <label class="col-6 col-md-2">To</label>
-                                <div class="col-md-3 col-6">
-                                    <input type="date" class="form-control" name="tgl_klr" id="end" />
-                                </div>
-                            </div>
-                        <?php } ?>
-
                         <div class="form-group row mb-2">
                             <label class="col-6 col-md-3">Contract No.</label>
                             <div class="col-md-3 col-6">
@@ -71,7 +58,7 @@
                             </div>
                         </div>
                         <div class="float-right">
-                            <button type="button" id="btn-filter" class="btn btn-primary ">Filter <i class="fas fas fa-sort"></i></button>
+                            <button type="button" id="btn-filter" class="btn btn-primary ">Filter <i class="fas fas fa-filter"></i></button>
                             <button type="button" id="btn-reset" class="btn btn-default">Reset
                                 <i class="fas fas fa-undo"></i>
                             </button>
@@ -98,15 +85,23 @@
                                 <th>Customer</th>
                                 <th>No.Contract</th>
                                 <th>Commodity</th>
+                                <th>Package</th>
+                                <th>ContainerType</th>
                                 <th>Gross</th>
                                 <th>Tare</th>
                                 <th>Netto</th>
+                                <th>Split</th>
+                                <th>No.SplitPO</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

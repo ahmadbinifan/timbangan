@@ -8,7 +8,7 @@
         @page {
 
             margin-top: 1cm;
-            margin-bottom: 1cm;
+            margin-bottom: 2.5cm;
             margin-left: 2cm;
             margin-right: 3cm;
         }
@@ -160,6 +160,7 @@
                 <th rowspan="2">Temp (*C)</th>
                 <th rowspan="2">Density</th>
                 <th colspan="2">Balance(Kg/Ltr)</th>
+                <th rowspan="2">Split PO</th>
             </tr>
             <tr>
                 <th>IN</th>
@@ -219,6 +220,7 @@
                     <td><?= $value['density'] ?> </td>
                     <td><?= $kage ?> </td>
                     <td><?= $persen . "%" ?> </td>
+                    <td><?= $value['NoPO_Split'] ?></td>
                 </tr>
         </tbody>
     <?php } ?>
@@ -230,6 +232,7 @@
             <td colspan="2"></td>
             <td><?= number_format($totalKage) ?></td>
             <td><?= $topers . "%" ?></td>
+            <td></td>
             <!-- <td colspan="16" align="left">Total</td>
             <td colspan="16" align="left">Total</td> -->
         </tr>
@@ -237,12 +240,28 @@
     </table>
     <?php
     $balanceFooter = 0;
-    $balanceFooter =  $header['Qty_PO'] - $totalNetto;
+    $balanceFooter = $totalNetto - $header['Qty_PO'];
     $percentFooter =  $balanceFooter / $totalNetto * 100;
     ?>
     <p>Total Received : <?= number_format($totalNetto) ?> Kg/Ltr <br>
-        Balance <span class="tab" style="margin-left:26px ;"></span> : <?= $balanceFooter ?> Kg/Ltr <br>
-        Percentage <span class="tab" style="margin-left: 14px;"></span> : <?= number_format($percentFooter, 2) . "%" ?> </p>
+        Balance <span class="tab" style="margin-left:26px ;"></span> : <?= number_format(abs($balanceFooter)) ?> Kg/Ltr
+        <?php if ($balanceFooter < 0) {
+            echo "(Less)";
+        } elseif ($balanceFooter == 0) {
+            echo "";
+        } else {
+            echo "(Over)";
+        } ?>
+        <br>
+        Percentage <span class="tab" style="margin-left: 14px;"></span> : <?= number_format(abs($percentFooter), 2) ?>%
+        <?php if ($percentFooter < 0) {
+            echo "(Less)";
+        } elseif ($percentFooter == 0) {
+            echo "";
+        } else {
+            echo  "(Over)";
+        } ?>
+    </p>
 </body>
 
 </html>

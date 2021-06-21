@@ -78,6 +78,7 @@ class weighbridge extends CI_Controller
             $row[] = $value->Package_Type;
             $row[] = $value->Container_Type;
             $row[] = $split_po;
+            $row[] = $value->NoPO_Split;
             // $row[] = $cstatus;
             // $row[] = $completion;
 

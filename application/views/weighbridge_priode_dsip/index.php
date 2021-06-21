@@ -31,12 +31,23 @@
                             </div>
                             <label class="col-6 col-md-2">To</label>
                             <div class="col-md-3 col-6">
-                                <input type="date" class="form-control" name="tgl_klr" id="end" />
+                                <input type="date" class="form-control" name="tgl_klr" id="end" onchange="listPO()" />
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label class="col-6 col-md-3">PO No. (Optional)</label>
+                            <div class="col-md-3 col-6">
+                                <select type="text" name="no_ref" class="no_ref form-control" id="no_ref" required />
+                                <option value="" selected>Choose PO No.</option>
+                                <!-- <?php foreach ($no_ref as $row) { ?>
+                                    <option value="<?= $row->no_ref; ?>"><?= $row->no_ref; ?></option>
+                                <?php } ?> -->
+                                </select>
                             </div>
                         </div>
                         <div class="float-right">
                             <button type="button" id="btn-filter" class="btn btn-primary ">Filter
-                                <i class="fas fas fa-sort"></i></button>
+                                <i class="fas fas fa-filter"></i></button>
                             <button type="button" id="btn-reset" class="btn btn-default">Reset
                                 <i class="fas fas fa-undo"></i></button>
                         </div>
@@ -72,12 +83,14 @@
                                 <th>PackageType</th>
                                 <th>ContainerType</th>
                                 <th>Split</th>
+                                <th>No.SplitPO</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

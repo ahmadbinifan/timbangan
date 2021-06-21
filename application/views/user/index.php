@@ -30,10 +30,14 @@
                                     <th>No.</th>
                                     <th>Fullname</th>
                                     <th>Username</th>
-                                    <th>User Status</th>
+                                    <th>Departement/Section</th>
                                     <th>Pdf</th>
                                     <th>Excel</th>
                                     <th>Periode</th>
+                                    <th>dap</th>
+                                    <th>dsip</th>
+                                    <th>penerimaan</th>
+                                    <th>pengeluaran</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -112,6 +116,42 @@
                                 <input type="text" name="section" class="form-control" placeholder="Section">
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">DAP</label>
+                            <div class="col-md-3 col-6">
+                                <select name="dap">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">DSIP</label>
+                            <div class="col-md-3 col-6">
+                                <select name="dsip">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Penerimaan</label>
+                            <div class="col-md-3 col-6">
+                                <select name="penerimaan">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">Pengeluaran</label>
+                            <div class="col-md-3 col-6">
+                                <select name="pengeluaran">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row float-right">
                             <button class="btn btn-info mr-2" type="submit">Submit</button>
                             <button class="btn btn-danger" onclick="$('#modalAdd').modal('hide');">Cancel</button>
@@ -183,6 +223,42 @@
                             <label class="col-md-3 col-6">Section</label>
                             <div class="col-md-3 col-6">
                                 <input type="text" name="section" class="form-control" placeholder="Section">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">DAP</label>
+                            <div class="col-md-3 col-6">
+                                <select name="dap" id="dap">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">DSIP</label>
+                            <div class="col-md-3 col-6">
+                                <select name="dsip" id="dsip">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Penerimaan</label>
+                            <div class="col-md-3 col-6">
+                                <select name="penerimaan" id="penerimaan">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <label class="col-md-3 col-6">Pengeluaran</label>
+                            <div class="col-md-3 col-6">
+                                <select name="pengeluaran" id="pengeluaran">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row float-right">

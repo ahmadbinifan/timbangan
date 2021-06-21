@@ -72,7 +72,7 @@
                 "targets": [0], //first column / numbering column
                 "orderable": false,
             }, ],
-
+            dom: 'Blfrtip',
             buttons: [
                 <?php if ($this->session->userdata('pdf') == 1) { ?> {
                         "text": '<span class="fas fa-file-pdf">Pdf</span>',
@@ -88,7 +88,7 @@
                         }
                     },
                 <?php } ?>,
-                <?php if ($this->session->userdata('excel') == 10) { ?> {
+                <?php if ($this->session->userdata('excel') == 1) { ?> {
                         "text": '<span class="fas fa-file-excel">Excel</span>',
                         "className": 'btn btn-success btn-sm',
                         action: function previewData() {
@@ -102,7 +102,7 @@
                         }
                     },
                 <?php } ?>
-                <?php if ($this->session->userdata('excel') == 1) { ?> {
+                <?php if ($this->session->userdata('excel') == 10) { ?> {
                         "extend": 'excel',
                         "text": '<span class="glyphicon glyphicon-pencil">Excel</span>',
                         "className": 'btn btn-success btn-sm fas fa-file-excel',
@@ -128,7 +128,7 @@
                     },
                 <?php } ?>
             ],
-            dom: 'Blfrtip',
+
             lengthMenu: [
                 [25, 50, 125, -1],
                 ['25 File', '50 File', '125 File', 'Show All']
@@ -154,12 +154,27 @@
         }
     );
 
-    // $('.pickdate').change(function() {
-    //     table.draw();
-
-    // });
-
     $('#btn-filter').click(function() { //button filter event click
+
+        let select = $("#form-filter").find('select[name=no_ref]');
+        $.ajax({
+            url: "<?= base_url('weighbridge/get_po') ?>",
+            method: "post",
+            dataType: "json",
+            data: {
+                tgl_msk: $('#tgl_msk').val(),
+                tgl_klr: $('#tgl_klr').val()
+            },
+            success: function(data) {
+                if (data) {
+                    let html = `<option value="` + data.no_ref + `"> ` + data.no_ref + `</option>`;
+                    $(select).html(html);
+                }
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
         table.ajax.reload(); //just reload table
     });
     $('#btn-reset').click(function() { //button reset event click
@@ -191,8 +206,28 @@
                     let html2 = `<option value="` + data.nm_brg + `"> ` + data.nm_brg + `</option>`;
                     $(select2).html(html2);
                 }
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
+    }
 
-
+    function listRef() {
+        let select = $("#form-filter").find('input[name=no_ref]');
+        $.ajax({
+            url: "<?= base_url('weighbridge/get_po') ?>",
+            method: "post",
+            dataType: "json",
+            data: {
+                start: $('#tgl_msk').val(),
+                end: $('#tgl_klr').val()
+            },
+            success: function(data) {
+                if (data) {
+                    let html = `<option value="` + data.no_ref + `"> ` + data.no_ref + `</option>`;
+                    $(select).html(html);
+                }
             },
             error: function(e) {
                 console.log(e);

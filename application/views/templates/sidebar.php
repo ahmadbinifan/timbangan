@@ -26,163 +26,176 @@
           </a>
         </li>
         <li class="nav-header">Wighbridge Data</li>
-        <li class="nav-item has-treeview">
-          <a href="" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge") {
-                                        echo 'active';
-                                      } elseif ($this->uri->segment(1) == "weighbridge_out") {
-                                        echo 'active';
-                                      } ?>">
-            <i class=" nav-icon fas fa-industry"></i>
-            <p>PT. DAP</p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item has-treeview">
-              <a href="<?= base_url('weighbridge') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode") {
-                                                                          echo 'active';
-                                                                        } elseif ($this->uri->segment(1) == "weighbridge") {
-                                                                          echo 'active';
-                                                                        }
-                                                                        ?>">
-                <i class=" fas fa-truck nav-icon-sm"></i>
-                <p>In</p>
-              </a>
-              <?php if ($this->session->userdata('periode') == 1) { ?>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item has-treeview">
-                    <a href="<?= base_url('weighbridge_priode') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode") {
-                                                                                      echo 'active';
-                                                                                    } ?>
-                                                                                  ">
-                      <i class="far fa-circle nav-icon "></i>
-                      <span>View Priode</span>
-                    </a>
-                </ul>
-              <?php } ?>
+        <?php if ($this->session->userdata('dap') == 1) { ?>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge") {
+                                          echo 'active';
+                                        } elseif ($this->uri->segment(1) == "weighbridge_out") {
+                                          echo 'active';
+                                        } ?>">
+              <i class=" nav-icon fas fa-industry"></i>
+              <p>PT. DAP</p>
+            </a>
+            <?php if ($this->session->userdata('penerimaan') == 1) { ?>
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview">
-                  <a href="<?= base_url('weighbridge') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge") {
+                  <a href="<?= base_url('weighbridge') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode") {
                                                                               echo 'active';
-                                                                            } ?>">
-                    <i class="far fa-circle nav-icon "></i>
-                    <span>View PO</span>
-                  </a>
-              </ul>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item has-treeview">
-              <a href="<?= base_url('weighbridge_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_out") {
-                                                                              echo 'active';
-                                                                            } elseif ($this->uri->segment(1) == "weighbridge_out") {
+                                                                            } elseif ($this->uri->segment(1) == "weighbridge") {
                                                                               echo 'active';
                                                                             }
                                                                             ?>">
-                <i class="fas fa-truck-loading nav-icon-sm"></i>
-                <p>Out</p>
-              </a>
-              <?php if ($this->session->userdata('periode') == 1) { ?>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item has-treeview">
-                    <a href="<?= base_url('weighbridge_priode_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_out") {
+                    <i class=" fas fa-truck nav-icon-sm"></i>
+                    <p>In</p>
+                  </a>
+
+                  <?php if ($this->session->userdata('periode') == 1) { ?>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item has-treeview">
+                        <a href="<?= base_url('weighbridge_priode') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode") {
                                                                                           echo 'active';
-                                                                                        } ?> <?php if ($this->session->userdata('id_user') == 2) {
-                                                                                                echo 'disabled';
-                                                                                              } ?> ">
-                      <i class="far fa-circle nav-icon "></i>
-                      <span>View Priode</span>
-                    </a>
-                </ul>
-              <?php } ?>
-              <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview">
-                  <a href="<?= base_url('weighbridge_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_out") {
+                                                                                        } ?>
+                                                                                  ">
+                          <i class="far fa-circle nav-icon "></i>
+                          <span>View Priode</span>
+                        </a>
+                    </ul>
+                  <?php } ?>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item has-treeview">
+                      <a href="<?= base_url('weighbridge') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge") {
                                                                                   echo 'active';
                                                                                 } ?>">
-                    <i class="far fa-circle nav-icon "></i>
-                    <span>View Contract</span>
-                  </a>
+                        <i class="far fa-circle nav-icon "></i>
+                        <span>View PO</span>
+                      </a>
+                  </ul>
               </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_dsip") {
-                                        echo 'active';
-                                      } elseif ($this->uri->segment(1) == "weighbridge_out_dsip") {
-                                        echo 'active';
-                                      } ?>">
-            <i class=" nav-icon fas fa-warehouse"></i>
-            <p>PT. DSIP</p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item has-treeview">
-              <a href="<?= base_url('weighbridge_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip") {
-                                                                              echo 'active';
-                                                                            } elseif ($this->uri->segment(1) == "weighbridge_dsip") {
-                                                                              echo 'active';
-                                                                            }
-                                                                            ?>">
-                <i class=" fas fa-truck nav-icon-sm"></i>
-                <p>In</p>
-              </a>
-              <?php if ($this->session->userdata('periode') == 1) { ?>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item has-treeview">
-                    <a href="<?= base_url('weighbridge_priode_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip") {
-                                                                                            echo 'active';
-                                                                                          } ?> <?php if ($this->session->userdata('id_user') == 2) {
-                                                                                                  echo 'disabled';
-                                                                                                } ?>">
-                      <i class="far fa-circle nav-icon "></i>
-                      <span>View Priode</span>
-                    </a>
-                </ul>
-              <?php } ?>
+            <?php } ?>
+            <?php if ($this->session->userdata('pengeluaran') == 1) { ?>
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview">
-                  <a href="<?= base_url('weighbridge_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_dsip") {
+                  <a href="<?= base_url('weighbridge_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_out") {
                                                                                   echo 'active';
-                                                                                } ?>">
-                    <i class="far fa-circle nav-icon "></i>
-                    <span>View PO</span>
-                  </a>
-              </ul>
-          </ul>
-          <ul class="nav nav-treeview">
-            <li class="nav-item has-treeview">
-              <a href="<?= base_url('weighbridge_out_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip_out") {
-                                                                                  echo 'active';
-                                                                                } elseif ($this->uri->segment(1) == "weighbridge_out_dsip") {
+                                                                                } elseif ($this->uri->segment(1) == "weighbridge_out") {
                                                                                   echo 'active';
                                                                                 }
                                                                                 ?>">
-                <i class=" fas fa-truck-loading nav-icon-sm"></i>
-                <p>Out</p>
-              </a>
-              <?php if ($this->session->userdata('periode') == 1) { ?>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item has-treeview">
-                    <a href="<?= base_url('weighbridge_priode_dsip_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip_out") {
+                    <i class="fas fa-truck-loading nav-icon-sm"></i>
+                    <p>Out</p>
+                  </a>
+                  <?php if ($this->session->userdata('periode') == 1) { ?>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item has-treeview">
+                        <a href="<?= base_url('weighbridge_priode_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_out") {
+                                                                                              echo 'active';
+                                                                                            } ?> <?php if ($this->session->userdata('id_user') == 2) {
+                                                                                                    echo 'disabled';
+                                                                                                  } ?> ">
+                          <i class="far fa-circle nav-icon "></i>
+                          <span>View Priode</span>
+                        </a>
+                    </ul>
+                  <?php } ?>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item has-treeview">
+                      <a href="<?= base_url('weighbridge_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_out") {
+                                                                                      echo 'active';
+                                                                                    } ?>">
+                        <i class="far fa-circle nav-icon "></i>
+                        <span>View Contract</span>
+                      </a>
+                  </ul>
+                </li>
+              </ul>
+            <?php } ?>
+          </li>
+        <?php } ?>
+        <?php if ($this->session->userdata('dsip') == 1) { ?>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_dsip") {
+                                          echo 'active';
+                                        } elseif ($this->uri->segment(1) == "weighbridge_out_dsip") {
+                                          echo 'active';
+                                        } ?>">
+              <i class=" nav-icon fas fa-warehouse"></i>
+              <p>PT. DSIP</p>
+            </a>
+            <?php if ($this->session->userdata('penerimaan') == 1) { ?>
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview">
+                  <a href="<?= base_url('weighbridge_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip") {
+                                                                                  echo 'active';
+                                                                                } elseif ($this->uri->segment(1) == "weighbridge_dsip") {
+                                                                                  echo 'active';
+                                                                                }
+                                                                                ?>">
+                    <i class=" fas fa-truck nav-icon-sm"></i>
+                    <p>In</p>
+                  </a>
+                  <?php if ($this->session->userdata('periode') == 1) { ?>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item has-treeview">
+                        <a href="<?= base_url('weighbridge_priode_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip") {
                                                                                                 echo 'active';
                                                                                               } ?> <?php if ($this->session->userdata('id_user') == 2) {
                                                                                                       echo 'disabled';
-                                                                                                    } ?> ">
-                      <i class="far fa-circle nav-icon "></i>
-                      <span>View Priode</span>
-                    </a>
-                </ul>
-              <?php } ?>
-              <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview">
-                  <a href="<?= base_url('weighbridge_out_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_out_dsip") {
+                                                                                                    } ?>">
+                          <i class="far fa-circle nav-icon "></i>
+                          <span>View Priode</span>
+                        </a>
+                    </ul>
+                  <?php } ?>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item has-treeview">
+                      <a href="<?= base_url('weighbridge_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_dsip") {
                                                                                       echo 'active';
                                                                                     } ?>">
-                    <i class="far fa-circle nav-icon "></i>
-                    <span>View Contract</span>
-                  </a>
+                        <i class="far fa-circle nav-icon "></i>
+                        <span>View PO</span>
+                      </a>
+                  </ul>
               </ul>
-            </li>
-          </ul>
-        </li>
+            <?php } ?>
+            <?php if ($this->session->userdata('pengeluaran') == 1) { ?>
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview">
+                  <a href="<?= base_url('weighbridge_out_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip_out") {
+                                                                                      echo 'active';
+                                                                                    } elseif ($this->uri->segment(1) == "weighbridge_out_dsip") {
+                                                                                      echo 'active';
+                                                                                    }
+                                                                                    ?>">
+                    <i class=" fas fa-truck-loading nav-icon-sm"></i>
+                    <p>Out</p>
+                  </a>
+                  <?php if ($this->session->userdata('periode') == 1) { ?>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item has-treeview">
+                        <a href="<?= base_url('weighbridge_priode_dsip_out') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_priode_dsip_out") {
+                                                                                                    echo 'active';
+                                                                                                  } ?> <?php if ($this->session->userdata('id_user') == 2) {
+                                                                                                          echo 'disabled';
+                                                                                                        } ?> ">
+                          <i class="far fa-circle nav-icon "></i>
+                          <span>View Priode</span>
+                        </a>
+                    </ul>
+                  <?php } ?>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item has-treeview">
+                      <a href="<?= base_url('weighbridge_out_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "weighbridge_out_dsip") {
+                                                                                          echo 'active';
+                                                                                        } ?>">
+                        <i class="far fa-circle nav-icon "></i>
+                        <span>View Contract</span>
+                      </a>
+                  </ul>
+                </li>
+              </ul>
+            <?php } ?>
+          </li>
+        <?php } ?>
 
         <?php if ($this->session->userdata('username') == "superuser") { ?>
           <li class="nav-header">Management User</li>

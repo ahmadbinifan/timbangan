@@ -67,6 +67,11 @@ class User extends CI_Controller
             } elseif ($value->pengeluaran == 1) {
                 $pengeluaran = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
             }
+            if ($value->reject == 0) {
+                $reject = "<div class='badge badge-danger'><i class='fas fa-times-circle'></div>";
+            } elseif ($value->reject == 1) {
+                $reject = "<div class='badge badge-success'><i class='fas fa-check-circle'></i></div>";
+            }
 
             $no++;
             $row = array();
@@ -81,6 +86,7 @@ class User extends CI_Controller
             $row[] = $dsip;
             $row[] = $penerimaan;
             $row[] = $pengeluaran;
+            $row[] = $reject;
             $row[] = "
             <div class='row'>
                 <button type='button' class='btn btn-success btn-sm' onclick='get(" . "\"" . $value->id_user . "\")' data-toggle='modal' data-target='#modalEdit' data-backdrop='static' data-keyboard='false' >
@@ -141,7 +147,7 @@ class User extends CI_Controller
         $data = $this->input->post();
         $id = $data['id_user'];
         unset($data['id_user']);
-        $data['password'] = md5($data['password']);
+        // $data['password'] = md5($data['password']);
         $res = $this->user->update($id, $data);
         echo json_encode($res);
     }

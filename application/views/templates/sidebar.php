@@ -109,6 +109,20 @@
                 </li>
               </ul>
             <?php } ?>
+
+            <ul class="nav nav-treeview">
+              <?php if ($this->session->userdata('reject') == 1) { ?>
+                <li class="nav-item has-treeview">
+                  <a href="<?= base_url('reject_ticket') ?>" class="nav-link <?php if ($this->uri->segment(1) == "reject_ticket") {
+                                                                                echo 'active';
+                                                                              }
+                                                                              ?>">
+                    <i class="fas fa-times-circle nav-icon-sm"></i>
+                    <p>Reject Ticket</p>
+                  </a>
+                </li>
+              <?php } ?>
+            </ul>
           </li>
         <?php } ?>
         <?php if ($this->session->userdata('dsip') == 1) { ?>
@@ -193,6 +207,19 @@
                   </ul>
                 </li>
               </ul>
+              <?php if ($this->session->userdata('reject') == 1) { ?>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item has-treeview">
+                    <a href="<?= base_url('reject_ticket_dsip') ?>" class="nav-link <?php if ($this->uri->segment(1) == "reject_ticket_dsip") {
+                                                                                      echo 'active';
+                                                                                    }
+                                                                                    ?>">
+                      <i class="fas fa-times-circle nav-icon-sm"></i>
+                      <p>Reject Ticket</p>
+                    </a>
+                  </li>
+                </ul>
+              <?php } ?>
             <?php } ?>
           </li>
         <?php } ?>

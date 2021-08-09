@@ -25,6 +25,13 @@ function adminAccess()
         redirect('auth');
     }
 }
+function rejectAccess()
+{
+    $ci = get_instance();
+    if (empty($ci->session->userdata('reject') == 1)) {
+        redirect('auth');
+    }
+}
 
 function superAccess()
 {

@@ -33,17 +33,17 @@ class weighbridge_out_dsip extends CI_Controller
             $netto = (int)$value->brt_2 - (int)$value->brt_1;
 
             if ($value->tgl_klr == null) {
-                $tgl_klr = "<div class='badge badge-danger'>Loading</div>";
+                $tgl_klr = "<div class='badge badge-info'>Loading</div>";
             } elseif ($value->tgl_klr) {
                 $tgl_klr = date('Y-m-d', strtotime($value->tgl_klr));
             }
             if ($value->jam_klr == null) {
-                $jam_klr = "<div class='badge badge-danger'>Loading</div>";
+                $jam_klr = "<div class='badge badge-info'>Loading</div>";
             } elseif ($value->tgl_klr) {
                 $jam_klr = $value->jam_klr;
             }
             if ($value->brt_1 == null) {
-                $brt_1 = "<div class='badge badge-danger'>Loading</div>";
+                $brt_1 = "<div class='badge badge-info'>Loading</div>";
             } elseif ($value->brt_1) {
                 $brt_1 = $value->brt_1;
             }
@@ -51,6 +51,14 @@ class weighbridge_out_dsip extends CI_Controller
                 $split = "<div class='badge badge-success'>Yes</div>";
             } else {
                 $split = "<div class='badge badge-warning'>No</div>";
+            }
+            if ($value->completion == 1) {
+                $completion = "<div class='badge badge-success'>Completed</div>";
+            } elseif ($value->completion == 2) {
+                $completion = "<div class='badge badge-info'>Loading/Unloading</div>";
+            } elseif ($value->completion == 3) {
+                $completion = "<div class='badge badge-danger'>Reject</div>";
+                $brt_2 = "<div class='badge badge-danger'>Reject</div>";
             }
 
             $no++;
@@ -74,6 +82,7 @@ class weighbridge_out_dsip extends CI_Controller
             $row[] = number_format($netto);
             $row[] = $split;
             $row[] = $value->NoPO_Split;
+            $row[] = $completion;
 
 
 

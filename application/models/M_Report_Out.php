@@ -11,8 +11,8 @@ class M_Report_Out extends CI_Model
         $end = $this->input->post('tgl_klr');
 
         if ($start && $end) {
-            $this->db->where('tgl_msk>=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk<=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr>=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr<=', date('Y-m-d', strtotime($end)));
         }
         if ($this->input->post('ctatus') == "KLR") {
             $this->db->where('ctatus', "KLR");
@@ -51,15 +51,15 @@ class M_Report_Out extends CI_Model
     {
         if ($start != "" && $end != "") {
             if ($no_ref != "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         } elseif ($start == "" && $end == "") {
             if ($no_ref != "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         }
         $this->db->select('*')->from($this->table)->where($cond);
@@ -71,15 +71,15 @@ class M_Report_Out extends CI_Model
     {
         if ($start != "" && $end != "") {
             if ($no_ref != "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         } elseif ($start == "" && $end == "") {
             if ($no_ref != "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "/") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         }
         $this->db->select('*')->from($this->table)->where($cond);
@@ -91,15 +91,15 @@ class M_Report_Out extends CI_Model
     {
         if ($start != "" && $end != "") {
             if ($no_ref != "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         } elseif ($start == "" && $end == "") {
             if ($no_ref != "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         }
         $this->db->select('*')->from($this->dsip)->where($cond);
@@ -112,15 +112,15 @@ class M_Report_Out extends CI_Model
 
         if ($start != "" && $end != "") {
             if ($no_ref != "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         } elseif ($start == "" && $end == "") {
             if ($no_ref != "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end)), 'no_ref' => $no_ref];
             } elseif ($no_ref == "////") {
-                $cond = ['tgl_msk >=' => date('Y-m-d', strtotime($start)), 'tgl_msk <=' => date('Y-m-d', strtotime($end))];
+                $cond = ['tgl_klr >=' => date('Y-m-d', strtotime($start)), 'tgl_klr <=' => date('Y-m-d', strtotime($end))];
             }
         }
         $this->db->select('*')->from($this->dsip)->where($cond);

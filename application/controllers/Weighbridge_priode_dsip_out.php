@@ -51,6 +51,14 @@ class Weighbridge_priode_dsip_out extends CI_Controller
             } else {
                 $split_ = "<div class='badge badge-warning'>No</div>";
             }
+            if ($value->completion == 1) {
+                $completion = "<div class='badge badge-success'>Completed</div>";
+            } elseif ($value->completion == 2) {
+                $completion = "<div class='badge badge-info'>Loading/Unloading</div>";
+            } elseif ($value->completion == 3) {
+                $completion = "<div class='badge badge-danger'>Reject</div>";
+                $brt_2 = "<div class='badge badge-danger'>Reject</div>";
+            }
 
 
 
@@ -76,6 +84,7 @@ class Weighbridge_priode_dsip_out extends CI_Controller
             $row[] = $value->Container_Type;
             $row[] = $split_;
             $row[] = $value->NoPO_Split;
+            $row[] = $completion;
 
             $data[] = $row;
         }

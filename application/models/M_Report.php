@@ -34,13 +34,13 @@ class M_Report extends CI_Model
     public function filterPriode($start, $end, $no_ref)
     {
         $this->db->select('*')->from($this->table);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         if ($no_ref != null) {
             $this->db->where('no_ref', $no_ref);
         } else {
-            $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         }
 
         $this->db->where('ctatus', 'MSK');
@@ -50,13 +50,13 @@ class M_Report extends CI_Model
     public function filterPriode_excel($start, $end, $no_ref)
     {
         $this->db->select('*')->from($this->table);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         if ($no_ref != null) {
             $this->db->where('no_ref', $no_ref);
         } else {
-            $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         }
         $this->db->where('ctatus', 'MSK');
         $result = $this->db->get()->result();
@@ -65,13 +65,13 @@ class M_Report extends CI_Model
     public function filterPriode_excel_dsip($start, $end, $no_ref)
     {
         $this->db->select('*')->from($this->dsip);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         if ($no_ref != null) {
             $this->db->where('no_ref', $no_ref);
         } else {
-            $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         }
         $this->db->where('ctatus', 'MSK');
         $result = $this->db->get()->result();
@@ -80,13 +80,13 @@ class M_Report extends CI_Model
     public function filterPriode_dsip($start, $end, $no_ref)
     {
         $this->db->select('*')->from($this->dsip);
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         if ($no_ref != null) {
             $this->db->where('no_ref', $no_ref);
         } else {
-            $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         }
         $this->db->where('ctatus', 'MSK');
         $result = $this->db->get()->result_array();

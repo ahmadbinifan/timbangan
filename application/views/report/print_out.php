@@ -158,13 +158,15 @@
                 <th rowspan="2">PACKAGE TYPE</th>
                 <th rowspan="2">CONTAINER TYPE</th>
                 <th rowspan="2">SPLIT PO</th>
+                <th rowspan="2">WB</th>
+                <th rowspan="2">R</th>
             </tr>
             <tr>
                 <th>IN</th>
                 <th>OUT</th>
             </tr>
             <tr>
-                <th colspan="13"></th>
+                <th colspan="15"></th>
             </tr>
         </thead>
         <tbody>
@@ -174,7 +176,18 @@
             foreach ($more as $value) {
                 $count = $count + 1;
                 $netto = $value['brt_2'] - $value['brt_1'];
+                if ($value['brt_2'] == null) {
+                    $netto = 0 * $value['brt_1'];
+                }
                 $total += ($netto);
+
+                if ($value['completion'] == 1) {
+                    $completion = "";
+                } elseif ($value['completion'] == 2) {
+                    $completion = "";
+                } elseif ($value['completion'] == 3) {
+                    $completion = "R";
+                }
             ?>
                 <tr>
                     <td><?= $count ?></td>
@@ -190,16 +203,18 @@
                     <td><?= $value['Package_Type'] ?></td>
                     <td><?= $value['Container_Type'] ?></td>
                     <td><?= $value['NoPO_Split'] ?></td>
+                    <td><?= $value['Type_Wb'] ?></td>
+                    <td><?= $completion ?></td>
                 </tr>
         </tbody>
     <?php } ?>
     <tfoot>
         <tr>
-            <td colspan="13"></td>
+            <td colspan="15"></td>
         </tr>
         <tr>
             <td colspan="9" style="text-align: left; font-weight :bold"><span class="tab"></span> TOTAL</td>
-            <td colspan="4"><?= number_format($total) ?> Kg</td>
+            <td colspan="6" style="text-align: left;"><?= number_format($total) ?> Kg</td>
         </tr>
     </tfoot>
     </table>
@@ -208,7 +223,7 @@
     $balanceFooter =  $total - $header['Qty_PO'];
     $percentFooter =  $balanceFooter / $total * 100;
     ?>
-    <p>Total <span class="tab" style="margin-left:38px;"></span> : <?= $total ?> Kg/Ltr <br>
+    <p>Total <span class="tab" style="margin-left:38px;"></span> : <?= number_format($total) ?> Kg/Ltr <br>
         Balance <span class="tab" style="margin-left:26px ;"></span> : <?= number_format(abs($balanceFooter)) ?> Kg/Ltr
         <?php if ($balanceFooter < 0) {
             echo "(Less)";

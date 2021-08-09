@@ -1,32 +1,33 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class weighbridge extends CI_Controller
+class Reject_ticket_dsip extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['M_Timbangan' => 'weighbridge']);
+        rejectAccess();
+        $this->load->model(['M_Reject_Ticket_Dsip' => 'reject_ticket', 'M_Timbangan' => 'weighbridge']);
     }
 
     public function index()
     {
-        adminAccess();
+        rejectAccess();
         $data = [
-            'title' => 'PT. DAP - Wighbridge In',
+            'title' => 'PT. DSIP - Wighbridge ',
             // 'nm_rls' => $this->weighbridge->get_rls(),
-            'no_ref' => $this->weighbridge->get_noRef(),
-            'nm_brg' => $this->weighbridge->get_barang(),
+            // 'no_ref' => $this->reject_ticket->get_noRef(),
+            // 'nm_brg' => $this->reject_ticket->get_barang(),
         ];
 
-        backView('weighbridge/index', $data);
+        backView('reject_ticket_dsip/index', $data);
     }
 
     public function ajax_list()
     {
-        adminAccess();
-        $list = $this->weighbridge->get_datatables();
+        rejectAccess();
+        $list = $this->reject_ticket->get_datatables();
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $value) {
@@ -46,8 +47,6 @@ class weighbridge extends CI_Controller
                 $brt_2 = "<div class='badge badge-info'>Unloading</div>";
             } elseif ($value->brt_2) {
                 $brt_2 = number_format($value->brt_2);
-            } elseif ($value->brt_2 == 1) {
-                $brt_2 = "0";
             }
             if ($value->Split_PO == 1) {
                 $split_po = "<div class='badge badge-success'>Yes</div>";
@@ -57,16 +56,18 @@ class weighbridge extends CI_Controller
             if ($value->completion == 1) {
                 $completion = "<div class='badge badge-success'>Completed</div>";
             } elseif ($value->completion == 2) {
-                $completion = "<div class='badge badge-info'>Loading/Unloading</div>";
+                $completion = "<div class='badge badge-warning'>Loading/Unloading</div>";
             } elseif ($value->completion == 3) {
                 $completion = "<div class='badge badge-danger'>Reject</div>";
                 $brt_2 = "<div class='badge badge-danger'>Reject</div>";
             }
 
+
             $no++;
             $row = array();
             $row[] = $no;
             $row[] = $value->no_seri;
+            $row[] = $value->vcf_No;
             $row[] = date('Y-m-d', strtotime($value->tgl_msk));
             $row[] = $value->jam_msk;
             // $row[] = date('Y-m-d', strtotime($value->tgl_klr));
@@ -88,40 +89,36 @@ class weighbridge extends CI_Controller
             $row[] = $value->Container_Type;
             $row[] = $split_po;
             $row[] = $value->NoPO_Split;
-            // $row[] = $cstatus;
-            $row[] = $completion;
+            // $row[] = $completion;
+            $reject = "\"" . $value->no_seri . "\"";
+            $btn_reject =
+                "<button type='button' class='btn btn-danger btn-xs' data-toggle='tooltip' title='Reject?' onclick='reject(" . $reject . ")' >
+            <i class='fas fa-exclamation-circle '></i>
+            </button>";
 
+            if ($value->completion == 1 || $value->completion == 2) {
+                $action = $btn_reject;
+            } else {
+                $action = "<div class='badge badge-danger'>has been rejected</div>";
+            }
+            $row[] = "<div class='row'>" . $action . "</div>";
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->weighbridge->count_all(),
-            "recordsFiltered" => $this->weighbridge->count_filtered(),
+            "recordsTotal" => $this->reject_ticket->count_all(),
+            "recordsFiltered" => $this->reject_ticket->count_filtered(),
             "data" => $data
         );
         //output to json format
         echo json_encode($output);
     }
 
-    public function rangeDates()
+    public function reject()
     {
-        $start_date = $_POST['start_date'];
-        $end_date = $_POST['end_date'];
-
-        $return = $this->weighbridge->rangeDate($start_date, $end_date);
-
-        echo json_encode($return);
-    }
-
-    public function get_vendor()
-    {
-        $params = $this->input->post('no_ref');
-        $data = $this->weighbridge->get_rls($params);
-        echo json_encode($data);
+        $id = $this->input->post('id');
+        $res = $this->reject_ticket->reject($id);
+        echo json_encode($res);
     }
 }
-
-
-
-/* End of file weighbridge.php */

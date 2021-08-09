@@ -167,6 +167,8 @@
                 <th colspan="3">WEIGHBRIDGE PT.DAP</th>
                 <th colspan="2">Balance(Kg/Ltr)</th>
                 <th rowspan="2">SPLIT PO</th>
+                <th rowspan="2">WB</th>
+                <th rowspan="2">R</th>
             </tr>
             <tr>
                 <th>IN</th>
@@ -181,22 +183,40 @@
                 <th>(%)</th>
             </tr>
             <tr>
-                <th colspan="18"></th>
+                <th colspan="20"></th>
             </tr>
         </thead>
         <tbody>
             <?php
+            $nettoSupp = 0;
+            $totalKage = 0;
+            $totalNetto = 0;
+            $netto = 0;
             $count = 0;
+            $percent = 0;
             foreach ($header as $value) {
                 $count = $count + 1;
+                $nettoSupp += $value['tmb_netto_rls'];
                 $netto = $value['brt_1'] - $value['brt_2'];
-                $kage = $value['tmb_netto_rls'] - $netto;
+                $totalNetto += $netto;
+                $totalKage = $totalNetto - $nettoSupp;
+                $kage = $netto - $value['tmb_netto_rls'];
                 if ($kage > 0) {
                     $percent =  0 - $kage / $value['tmb_netto_rls'] * 100;
+                } elseif ($kage == 0) {
+                    $percent = 0;
                 } else {
                     $percent = 0 -  $kage /  $value['tmb_netto_rls'] * 100;
                 }
                 $persen = number_format($percent, 2);
+
+                if ($value['completion'] == 1) {
+                    $completion = "";
+                } elseif ($value['completion'] == 2) {
+                    $completion = "";
+                } elseif ($value['completion'] == 3) {
+                    $completion = "R";
+                }
             ?>
 
                 <tr>
@@ -218,9 +238,25 @@
                     <td><?= $kage ?></td>
                     <td><?= $persen . "%" ?></td>
                     <td><?= $value['NoPO_Split'] ?></td>
+                    <td><?= $value['Type_Wb'] ?></td>
+                    <td><?= $completion ?></td>
                 </tr>
         </tbody>
     <?php } ?>
+    <tfoot>
+        <tr>
+            <td colspan="20"></td>
+        </tr>
+    </tfoot>
+    <tr>
+        <td colspan="11" style="text-align: left; font-weight :bold"><span class="tab"></span> TOTAL</td>
+        <td><?= number_format($nettoSupp) ?></td>
+        <td colspan="2"></td>
+        <td><?= number_format($totalNetto) ?></td>
+        <td><?= number_format($totalKage) ?></td>
+        <td colspan="4"></td>
+
+    </tr>
     </table>
     <div id="footer">
         <p class="page">Page

@@ -29,8 +29,8 @@ class M_Timbangan_Dsip extends CI_Model
             $this->db->where('nm_brg', $this->input->post('nm_brg'));
         }
         if ($start && $end) {
-            $this->db->where('tgl_msk>=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk<=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr>=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr<=', date('Y-m-d', strtotime($end)));
             // ->where($this->table['tgl_msk'] . '.tgl_msk >=', $start_date)
             // ->where($this->table['tgl_msk'] . '.tgl_msk <=', $end_date);
         }
@@ -118,8 +118,8 @@ class M_Timbangan_Dsip extends CI_Model
             ->from($this->table)
             ->distinct()
             ->order_by('no_seri', 'desc');
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         $this->db->where('ctatus', 'MSK');
         $result = $this->db->get()->result_array();
         return $result;
@@ -145,8 +145,8 @@ class M_Timbangan_Dsip extends CI_Model
     public function rangeDate($start_date, $end_date)
     {
         $this->db->select($this->table)
-            ->where($this->table['tgl_msk'] . '.tgl_msk >=', $start_date)
-            ->where($this->table['tgl_msk'] . '.tgl_msk <=', $end_date);
+            ->where($this->table['tgl_klr'] . '.tgl_klr >=', $start_date)
+            ->where($this->table['tgl_klr'] . '.tgl_klr <=', $end_date);
         $query = $this->db->get();
         $return = $query->result();
         return $return;

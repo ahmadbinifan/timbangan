@@ -81,6 +81,7 @@
                                 <th>Netto</th>
                                 <th>Split</th>
                                 <th>No.SplitPO</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,6 +89,7 @@
                         <tfoot>
                             <tr>
                                 <!-- <th colspan="11">Total Netto : </th> -->
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

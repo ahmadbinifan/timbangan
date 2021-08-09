@@ -104,7 +104,7 @@
         }
 
         .tab {
-            display: inline-block;
+            /* display: inline-block; */
             margin-left: 40px;
         }
     </style>
@@ -137,8 +137,8 @@
     <div class="bold">Report Date<span class="tab" style="margin-left: 42px;"> : <?php
                                                                                     echo date("d M Y");
                                                                                     ?></div>
-    <div class="bold">Commodity <span class="tab" style="margin-left: 38px;"></span> : <?= $header['nm_brg'] ?></div>
-    <div class="bold">Conract no.<span class="tab" style="margin-left: 42px"></span> : <?= $header['no_ref'] ?> </div>
+    <div class="bold">Commodity <span class="tab" style="margin-left: 40px;"> : <?= $header['nm_brg'] ?></div>
+    <div class="bold">Conract no.<span class="tab" style="margin-left: 44px"> : <?= $header['no_ref'] ?> </div>
     <div class="bold">Destination<span class="tab" style="margin-left: 45px;"> : <?= $header['nm_rls'] ?></div>
     <div class="bold">Fringe no.<span class="tab" style="margin-left: 50px;"> : _________</div>
     <div class="bold">PO Quantity<span class="tab" style="margin-left: 41px;"> : <?= $header['Qty_PO'] ?></div>
@@ -154,17 +154,19 @@
                 <th rowspan="2">CONTAINER NO.</th>
                 <th rowspan="2" style="width: 100px;">SEAL NO.</th>
                 <th rowspan="2" style="width: 130px;">TRANSPORTATION</th>
+                <th rowspan="2">NETTO (KG)</th>
                 <th rowspan="2">PACKAGE TYPE</th>
                 <th rowspan="2">CONTAINER TYPE</th>
-                <th rowspan="2">NETTO (KG)</th>
                 <th rowspan="2">SPLIT PO</th>
+                <th rowspan="2">WB</th>
+                <th rowspan="2">R</th>
             </tr>
             <tr>
                 <th>IN</th>
                 <th>OUT</th>
             </tr>
             <tr>
-                <th colspan="13"></th>
+                <th colspan="15"></th>
             </tr>
         </thead>
         <tbody>
@@ -174,7 +176,18 @@
             foreach ($more as $value) {
                 $count = $count + 1;
                 $netto = $value['brt_2'] - $value['brt_1'];
+                if ($value['brt_2'] == null) {
+                    $netto = 0 * $value['brt_1'];
+                }
                 $total += ($netto);
+
+                if ($value['completion'] == 1) {
+                    $completion = "";
+                } elseif ($value['completion'] == 2) {
+                    $completion = "";
+                } elseif ($value['completion'] == 3) {
+                    $completion = "R";
+                }
 
             ?>
                 <tr>
@@ -191,16 +204,19 @@
                     <td><?= $value['Package_Type'] ?></td>
                     <td><?= $value['Container_Type'] ?></td>
                     <td><?= $value['NoPO_Split'] ?></td>
+                    <td><?= $value['Type_Wb'] ?></td>
+                    <td><?= $completion ?></td>
                 </tr>
         </tbody>
     <?php } ?>
     <tfoot>
         <tr>
-            <td colspan="13"></td>
+            <td colspan="15"></td>
         </tr>
         <tr>
             <td colspan="9" style="text-align: left; font-weight :bold"><span class="tab"></span> TOTAL</td>
-            <td colspan="4"><?= number_format($total) ?> Kg</td>
+            <td colspan="6" style="text-align: left;"><?= number_format($total) ?> Kg</td>
+            <!-- <td colspan="4"></td> -->
         </tr>
     </tfoot>
     </table>
@@ -209,7 +225,7 @@
     $balanceFooter =  $total - $header['Qty_PO'];
     $percentFooter =  $balanceFooter / $total * 100;
     ?>
-    <p>Total <span class="tab" style="margin-left:38px;"></span> : <?= $total ?> Kg/Ltr <br>
+    <p>Total <span class="tab" style="margin-left:38px;"></span> : <?= number_format($total) ?> Kg/Ltr <br>
         Balance <span class="tab" style="margin-left:26px ;"></span> : <?= number_format(abs($balanceFooter)) ?> Kg/Ltr
         <?php if ($balanceFooter < 0) {
             echo "(Less)";

@@ -5,8 +5,8 @@ class M_Timbangan extends CI_Model
 {
     private $table = 'tb_timbangan_dap';
     private $primary = 'no_seri';
-    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'tmb_gross_rls', 'tmb_tare_rls', 'tmb_netto_rls', 'Split_PO', 'NoPO_Split', 'Qty_PO', 'Package_Type', 'Container_Type', null); //set column field database for datatable orderable
-    var $column_search = array('no_seri', 'nm_brg', 'no_ref'); //set column field database for datatable searchable 
+    var $column_order = array(null, 'no_seri', 'tgl_msk', 'jam_msk', 'tgl_klr', 'jam_klr', 'no_pol', 'no_con', 'nm_rls', 'no_ref', 'nm_brg', 'brt_1', 'brt_2', 'tmb_gross_rls', 'tmb_tare_rls', 'tmb_netto_rls', 'Split_PO', 'NoPO_Split', 'Qty_PO', 'Package_Type', 'Container_Type', 'completion', null); //set column field database for datatable orderable
+    var $column_search = array('no_seri', 'nm_brg', 'no_ref', 'completion'); //set column field database for datatable searchable 
     var $order = array('no_seri' => 'Desc'); // default order 
 
     private function _get_datatables_query()
@@ -31,8 +31,8 @@ class M_Timbangan extends CI_Model
             $this->db->where('nm_brg', $this->input->post('nm_brg'));
         }
         if ($start && $end) {
-            $this->db->where('tgl_msk>=', date('Y-m-d', strtotime($start)));
-            $this->db->where('tgl_msk<=', date('Y-m-d', strtotime($end)));
+            $this->db->where('tgl_klr>=', date('Y-m-d', strtotime($start)));
+            $this->db->where('tgl_klr<=', date('Y-m-d', strtotime($end)));
             // ->where($this->table['tgl_msk'] . '.tgl_msk >=', $start_date)
             // ->where($this->table['tgl_msk'] . '.tgl_msk <=', $end_date);
         }
@@ -109,8 +109,8 @@ class M_Timbangan extends CI_Model
             ->from($this->table)
             ->distinct()
             ->order_by('no_seri', 'desc');
-        $this->db->where('tgl_msk >=', date('Y-m-d', strtotime($start)));
-        $this->db->where('tgl_msk <=', date('Y-m-d', strtotime($end)));
+        $this->db->where('tgl_klr >=', date('Y-m-d', strtotime($start)));
+        $this->db->where('tgl_klr <=', date('Y-m-d', strtotime($end)));
         $this->db->where('ctatus', 'MSK');
         $result = $this->db->get()->result_array();
         return $result;
@@ -155,9 +155,9 @@ class M_Timbangan extends CI_Model
     {
         if ($start && $end) {
             if (!$no_ref) {
-                $con = ['tgl_msk<=' => $start, 'tgl_msk>=' => $end];
+                $con = ['tgl_klr<=' => $start, 'tgl_klr>=' => $end];
             } elseif ($no_ref) {
-                $con = ['tgl_msk<=' => $start, 'tgl_msk>=' => $end, 'no_ref' => $no_ref];
+                $con = ['tgl_klr<=' => $start, 'tgl_klr>=' => $end, 'no_ref' => $no_ref];
             } else {
                 $con = ['no_ref' => $no_ref];
             }

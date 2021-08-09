@@ -44,6 +44,7 @@ class Auth extends CI_Controller
                 'dsip' => $user['dsip'],
                 'penerimaan' => $user['penerimaan'],
                 'pengeluaran' => $user['pengeluaran'],
+                'reject' => $user['reject'],
             ];
 
             $this->session->set_userdata($data);
@@ -57,7 +58,7 @@ class Auth extends CI_Controller
     public function logout()
     {
         $data = [
-            'id_user', 'fullname', 'username', 'password', 'user_status', 'pdf', 'excel', 'import', 'dap', 'dsip', 'penerimaan', 'pengeluaran'
+            'id_user', 'fullname', 'username', 'password', 'user_status', 'pdf', 'excel', 'import', 'dap', 'dsip', 'penerimaan', 'pengeluaran', 'reject'
         ];
         $this->session->unset_userdata($data);
         $this->session->sess_destroy();

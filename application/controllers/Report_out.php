@@ -32,7 +32,7 @@ class report_out extends CI_Controller
     public function PrintByContract($part1 = null, $part2 = null)
     {
 
-        $id = $part1 . "/" . urldecode($part2);
+        $id = urldecode($part1) . "/" . ($part2);
         $this->load->library('pdf');
         $data['header'] = $this->weighbridge->getHead($id);
         $data['more'] = $this->weighbridge->getMore($id);
@@ -116,7 +116,7 @@ class report_out extends CI_Controller
             ->setCellValue('A2', 'NO CONTRACT')
             ->mergeCells('A2:D2')
             ->setCellValue('A3', 'ISSUING MATERIAL')
-            ->mergeCells('A3:M3')
+            ->mergeCells('A3:N3')
             ->setCellValue('A4', 'NO')
             ->mergeCells('A4:A5')
             ->setCellValue('B4', 'DATE')
@@ -142,7 +142,9 @@ class report_out extends CI_Controller
             ->setCellValue('L4', 'CONTAINER TYPE')
             ->mergeCells('L4:L5')
             ->setCellValue('M4', 'SPLIT PO')
-            ->mergeCells('M4:M5');
+            ->mergeCells('M4:M5')
+            ->setCellValue('N4', 'WB')
+            ->mergeCells('N4:N5');
 
 
 
@@ -173,7 +175,8 @@ class report_out extends CI_Controller
                 ->setCellValue('J' . $i, $netto)
                 ->setCellValue('K' . $i, $value->Package_Type)
                 ->setCellValue('L' . $i, $value->Container_Type)
-                ->setCellValue('M' . $i, $value->Split_PO);
+                ->setCellValue('M' . $i, $value->NoPO_Split)
+                ->setCellValue('N' . $i, $value->Type_Wb);
 
             $i++;
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $i, 'TOTAL');
@@ -183,7 +186,7 @@ class report_out extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:M')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:N')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Issuing Material ' . date('d-m-Y'));
@@ -234,7 +237,7 @@ class report_out extends CI_Controller
             ->setCellValue('A2', 'NO CONTRACT')
             ->mergeCells('A2:D2')
             ->setCellValue('A3', 'ISSUING MATERIAL')
-            ->mergeCells('A3:M3')
+            ->mergeCells('A3:N3')
             ->setCellValue('A4', 'NO')
             ->mergeCells('A4:A5')
             ->setCellValue('B4', 'DATE')
@@ -260,7 +263,9 @@ class report_out extends CI_Controller
             ->setCellValue('L4', 'CONTAINER TYPE')
             ->mergeCells('L4:L5')
             ->setCellValue('M4', 'SPLIT PO')
-            ->mergeCells('M4:M5');
+            ->mergeCells('M4:M5')
+            ->setCellValue('N4', 'WB')
+            ->mergeCells('N4:N5');
 
 
 
@@ -291,7 +296,8 @@ class report_out extends CI_Controller
                 ->setCellValue('J' . $i, $netto)
                 ->setCellValue('K' . $i, $value->Package_Type)
                 ->setCellValue('L' . $i, $value->Container_Type)
-                ->setCellValue('M' . $i, $value->Split_PO);
+                ->setCellValue('M' . $i, $value->NoPO_Split)
+                ->setCellValue('N' . $i, $value->Type_Wb);
 
             $i++;
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $i, 'TOTAL');
@@ -301,7 +307,7 @@ class report_out extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:M')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:N')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Issuing Material ' . date('d-m-Y'));
@@ -385,7 +391,9 @@ class report_out extends CI_Controller
             ->setCellValue('P4', 'CONTAINER TYPE')
             ->mergeCells('P4:P5')
             ->setCellValue('Q4', 'SPLIT PO')
-            ->mergeCells('Q4:Q5');
+            ->mergeCells('Q4:Q5')
+            ->setCellValue('R4', 'WB')
+            ->mergeCells('R4:R5');
 
         // Miscellaneous glyphs, UTF-8
 
@@ -418,7 +426,8 @@ class report_out extends CI_Controller
                 ->setCellValue('N' . $i, $netto)
                 ->setCellValue('O' . $i, $value->Package_Type)
                 ->setCellValue('P' . $i, $value->Container_Type)
-                ->setCellValue('Q' . $i, $value->NoPO_Split);
+                ->setCellValue('Q' . $i, $value->NoPO_Split)
+                ->setCellValue('R' . $i, $value->Type_Wb);
 
             $i++;
             //      $spreadsheet->setActiveSheetIndex(0)->setCellValue('J' . $i, 'TOTAL');
@@ -428,7 +437,7 @@ class report_out extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:Q')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:R')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Receiving Material ' . date('d-m-Y'));
@@ -511,7 +520,9 @@ class report_out extends CI_Controller
             ->setCellValue('P4', 'CONTAINER TYPE')
             ->mergeCells('P4:P5')
             ->setCellValue('Q4', 'SPLIT PO')
-            ->mergeCells('Q4:Q5');
+            ->mergeCells('Q4:Q5')
+            ->setCellValue('R4', 'WB')
+            ->mergeCells('R4:R5');
 
         // Miscellaneous glyphs, UTF-8
 
@@ -544,7 +555,8 @@ class report_out extends CI_Controller
                 ->setCellValue('N' . $i, $netto)
                 ->setCellValue('O' . $i, $value->Package_Type)
                 ->setCellValue('P' . $i, $value->Container_Type)
-                ->setCellValue('Q' . $i, $value->NoPO_Split);
+                ->setCellValue('Q' . $i, $value->NoPO_Split)
+                ->setCellValue('R' . $i, $value->Type_Wb);
 
             $i++;
             //      $spreadsheet->setActiveSheetIndex(0)->setCellValue('J' . $i, 'TOTAL');
@@ -554,7 +566,7 @@ class report_out extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:Q')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:R')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Issuing Material ' . date('d-m-Y'));

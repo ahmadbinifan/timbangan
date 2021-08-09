@@ -165,26 +165,43 @@
                 <th rowspan="2" style="width: 20px;">PACKAGE</th>
                 <th rowspan="2" style="width: 10px;">CONT.</th>
                 <th rowspan="2">SPLIT PO</th>
+                <th rowspan="2">WB</th>
+                <th rowspan="2">R</th>
 
             </tr>
             <tr>
                 <th>IN</th>
                 <th>OUT</th>
-                <th>GROSS</th>
                 <th>TARE</th>
+                <th>GROSS</th>
                 <th>NETTO</th>
             </tr>
             <tr>
-                <th colspan="17"></th>
+                <th colspan="19"></th>
             </tr>
         </thead>
         <tbody>
             <?php
+            $netto = 0;
+            $nettoSupp = 0;
+            $totalKage = 0;
+            $totalNetto = 0;
             $count = 0;
             $percent = 0;
             foreach ($header as $value) {
                 $count = $count + 1;
-                $netto = $value['brt_1'] - $value['brt_2'];
+                $netto = $value['brt_2'] - $value['brt_1'];
+                $nettoSupp += $value['tmb_netto_rls'];
+                $totalNetto += $netto;
+                $totalKage = $totalNetto - $nettoSupp;
+
+                if ($value['completion'] == 1) {
+                    $completion = "";
+                } elseif ($value['completion'] == 2) {
+                    $completion = "";
+                } elseif ($value['completion'] == 3) {
+                    $completion = "R";
+                }
             ?>
 
                 <tr>
@@ -199,15 +216,28 @@
                     <td><?= $value['nm_brg'] ?></td>
                     <td><?= $value['transport'] ?></td>
                     <td><?= $value['no_seal'] ?></td>
-                    <td><?= number_format($value['brt_1']) ?></td>
                     <td><?= number_format($value['brt_2']) ?></td>
+                    <td><?= number_format($value['brt_1']) ?></td>
                     <td><?= number_format($netto) ?></td>
                     <td><?= $value['Package_Type'] ?></td>
                     <td><?= $value['Container_Type'] ?></td>
                     <td><?= $value['NoPO_Split'] ?></td>
+                    <td><?= $value['Type_Wb'] ?></td>
+                    <td><?= $completion ?></td>
                 </tr>
         </tbody>
     <?php } ?>
+    <tfoot>
+        <tr>
+            <td colspan="19"></td>
+        </tr>
+    </tfoot>
+    <tr>
+        <td colspan="13" style="text-align: left; font-weight :bold"><span class="tab"></span> TOTAL</td>
+        <td><?= number_format($totalNetto) ?></td>
+        <td colspan="5"></td>
+
+    </tr>
     </table>
     <div id="footer">
         <p class="page">Page

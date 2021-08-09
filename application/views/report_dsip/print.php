@@ -9,8 +9,8 @@
 
             margin-top: 1cm;
             margin-bottom: 2.5cm;
-            margin-left: 2cm;
-            margin-right: 3cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         /* body {
@@ -161,6 +161,8 @@
                 <th rowspan="2">Density</th>
                 <th colspan="2">Balance(Kg/Ltr)</th>
                 <th rowspan="2">Split PO</th>
+                <th rowspan="2">WB</th>
+                <th rowspan="2">R</th>
             </tr>
             <tr>
                 <th>IN</th>
@@ -184,10 +186,17 @@
             foreach ($more as $value) {
                 $count = $count + 1;
                 $netto = ($value['brt_1']) - ($value['brt_2']);
+                if ($value['brt_2'] == null) {
+                    $netto = ($value['brt_1'] * 0);
+                }
                 $kage = $netto - $value['tmb_netto_rls'];
-
+                if ($value['brt_2'] == null) {
+                    $kage = 0 * $value['tmb_netto_rls'];
+                }
                 if ($kage > 0) {
                     $percent =  0 - $kage / $value['tmb_netto_rls'] * 100;
+                } elseif ($kage == 0) {
+                    $percent = 0;
                 } else {
                     $percent = 0 -  $kage /  $value['tmb_netto_rls'] * 100;
                 }
@@ -197,10 +206,20 @@
                 $totalKage = $totalNetto - $totalSupp;
                 if ($totalKage > 0) {
                     $totalPers = 0 - $totalKage / $totalSupp * 100;
+                } elseif ($totalKage == 0) {
+                    $totalPers = 0;
                 } else {
                     $totalPers = 0 - $totalKage / $totalSupp * 100;
                 }
                 $topers = number_format($totalPers, 2);
+
+                if ($value['completion'] == 1) {
+                    $completion = "";
+                } elseif ($value['completion'] == 2) {
+                    $completion = "";
+                } elseif ($value['completion'] == 3) {
+                    $completion = "R";
+                }
 
             ?>
                 <tr>
@@ -221,6 +240,8 @@
                     <td><?= $kage ?> </td>
                     <td><?= $persen . "%" ?> </td>
                     <td><?= $value['NoPO_Split'] ?></td>
+                    <td><?= $value['Type_Wb'] ?></td>
+                    <td><?= $completion ?></td>
                 </tr>
         </tbody>
     <?php } ?>
@@ -232,7 +253,8 @@
             <td colspan="2"></td>
             <td><?= number_format($totalKage) ?></td>
             <td><?= $topers . "%" ?></td>
-            <td></td>
+            <td colspan="3"></td>
+
             <!-- <td colspan="16" align="left">Total</td>
             <td colspan="16" align="left">Total</td> -->
         </tr>

@@ -136,6 +136,8 @@
                 form.find('select[name=penerimaan]').trigger("change");
                 form.find('select[name=pengeluaran]').val(data.pengeluaran);
                 form.find('select[name=pengeluaran]').trigger("change");
+                form.find('select[name=reject]').val(data.reject);
+                form.find('select[name=reject]').trigger("change");
             }
         });
     }
@@ -159,6 +161,8 @@
         form.find('select[name=penerimaan]').trigger("change");
         form.find('select[name=pengeluaran]').val(null);
         form.find('select[name=pengeluaran]').trigger("change");
+        form.find('select[name=reject]').val(null);
+        form.find('select[name=reject]').trigger("change");
 
     }
 </script>

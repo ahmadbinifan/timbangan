@@ -32,17 +32,17 @@ class Weighbridge_priode_out extends CI_Controller
             $netto = (int)$value->brt_2 - (int)$value->brt_1;
 
             if ($value->tgl_klr == null) {
-                $tgl_klr = "<div class='badge badge-danger'>Unloading</div>";
+                $tgl_klr = "<div class='badge badge-info'>Unloading</div>";
             } elseif ($value->tgl_klr) {
                 $tgl_klr = date('Y-m-d', strtotime($value->tgl_klr));
             }
             if ($value->jam_klr == null) {
-                $jam_klr = "<div class='badge badge-danger'>Unloading</div>";
+                $jam_klr = "<div class='badge badge-info'>Unloading</div>";
             } elseif ($value->tgl_klr) {
                 $jam_klr = $value->jam_klr;
             }
             if ($value->brt_2 == null) {
-                $brt_2 = "<div class='badge badge-danger'>Unloading</div>";
+                $brt_2 = "<div class='badge badge-info'>Unloading</div>";
             } elseif ($value->brt_2) {
                 $brt_2 = number_format($value->brt_2);
             }
@@ -50,6 +50,14 @@ class Weighbridge_priode_out extends CI_Controller
                 $split_po = "<div class='badge badge-success'>Yes</div>";
             } else {
                 $split_po = "<div class='badge badge-warning'>No</div>";
+            }
+            if ($value->completion == 1) {
+                $completion = "<div class='badge badge-success'>Completed</div>";
+            } elseif ($value->completion == 2) {
+                $completion = "<div class='badge badge-info'>Loading/Unloading</div>";
+            } elseif ($value->completion == 3) {
+                $completion = "<div class='badge badge-danger'>Reject</div>";
+                $brt_2 = "<div class='badge badge-danger'>Reject</div>";
             }
 
 
@@ -75,7 +83,7 @@ class Weighbridge_priode_out extends CI_Controller
             $row[] = $split_po;
             $row[] = $value->NoPO_Split;
             // $row[] = $cstatus;
-            // $row[] = $completion;
+            $row[] = $completion;
 
             $data[] = $row;
         }

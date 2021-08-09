@@ -112,7 +112,7 @@ class report extends CI_Controller
             ->setCellValue('A2', 'PO NO. :')
             ->mergeCells('A2:D2')
             ->setCellValue('A3', 'RECEIVING MATERIAL')
-            ->mergeCells('A3:Q3')
+            ->mergeCells('A3:S3')
             ->setCellValue('A4', 'NO')
             ->mergeCells('A4:A5')
             ->setCellValue('B4', 'DATE')
@@ -145,7 +145,11 @@ class report extends CI_Controller
             ->setCellValue('O5', '(Kg/Ltr)')
             ->setCellValue('P5', '(%)')
             ->setCellValue('Q4', '(SPLIT PO)')
-            ->mergeCells('Q4:Q5');
+            ->mergeCells('Q4:Q5')
+            ->setCellValue('R4', '(WB)')
+            ->mergeCells('R4:R5')
+            ->setCellValue('S4', '(R)')
+            ->mergeCells('S4:S5');
 
 
         // Miscellaneous glyphs, UTF-8
@@ -166,6 +170,13 @@ class report extends CI_Controller
             $totalSupp += $value->tmb_netto_rls;
             $totalKage = $total - $totalSupp;
             $totalPercent = $totalKage / $total * 100;
+            if ($value->completion == 1) {
+                $completion = "";
+            } elseif ($value->completion == 2) {
+                $completion = "";
+            } elseif ($value->completion == 3) {
+                $completion = "R";
+            }
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('E' . $judul, $id)
@@ -185,7 +196,9 @@ class report extends CI_Controller
                 ->setCellValue('N' . $i, ($value->density))
                 ->setCellValue('O' . $i, $kage)
                 ->setCellValue('P' . $i, number_format($percent, 2) . "%")
-                ->setCellValue('Q' . $i, $value->Split_PO);
+                ->setCellValue('Q' . $i, $value->NoPO_Split)
+                ->setCellValue('Q' . $i, $value->Type_Wb)
+                ->setCellValue('Q' . $i, $completion);
             $i++;
 
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $i, 'TOTAL');
@@ -198,7 +211,7 @@ class report extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:P')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:S')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Receiving Material ' . date('d-m-Y'));
@@ -247,6 +260,8 @@ class report extends CI_Controller
             ->mergeCells('A1:D1')
             ->setCellValue('A2', 'PO NO. :')
             ->mergeCells('A2:D2')
+            ->setCellValue('A3', 'RECEIVING MATERIAL')
+            ->mergeCells('A3:S3')
             ->setCellValue('A4', 'NO')
             ->mergeCells('A4:A5')
             ->setCellValue('B4', 'DATE')
@@ -279,7 +294,11 @@ class report extends CI_Controller
             ->setCellValue('O5', '(Kg/Ltr)')
             ->setCellValue('P5', '(%)')
             ->setCellValue('Q4', 'SPLIT PO')
-            ->mergeCells('Q4:Q5');
+            ->mergeCells('Q4:Q5')
+            ->setCellValue('R4', 'WB')
+            ->mergeCells('R4:R5')
+            ->setCellValue('S4', 'S')
+            ->mergeCells('S4:S5');
 
 
         // Miscellaneous glyphs, UTF-8
@@ -300,6 +319,13 @@ class report extends CI_Controller
             $totalSupp += $value->tmb_netto_rls;
             $totalKage = $total - $totalSupp;
             $totalPercent = $totalKage / $total * 100;
+            if ($value->completion == 1) {
+                $completion = "";
+            } elseif ($value->completion == 2) {
+                $completion = "";
+            } elseif ($value->completion == 3) {
+                $completion = "R";
+            }
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('E' . $judul, $id)
@@ -319,7 +345,9 @@ class report extends CI_Controller
                 ->setCellValue('N' . $i, ($value->density))
                 ->setCellValue('O' . $i, $kage)
                 ->setCellValue('P' . $i, number_format($percent, 2) . "%")
-                ->setCellValue('Q' . $i, $value->Split_PO);
+                ->setCellValue('Q' . $i, $value->NoPO_Split)
+                ->setCellValue('R' . $i, $value->Type_Wb)
+                ->setCellValue('S' . $i, $completion);
             $i++;
 
             $spreadsheet->setActiveSheetIndex(0)->setCellValue('A' . $i, 'TOTAL');
@@ -332,7 +360,7 @@ class report extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:Q')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:S')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Receiving Material ' . date('d-m-Y'));
@@ -416,7 +444,11 @@ class report extends CI_Controller
             ->setCellValue('P5', '(Kg/Ltr)')
             ->setCellValue('Q5', '(%)')
             ->setCellValue('R4', 'SPLIT PO')
-            ->mergeCells('R4:R5');
+            ->mergeCells('R4:R5')
+            ->setCellValue('S4', 'WB')
+            ->mergeCells('S4:S5')
+            ->setCellValue('T4', 'R')
+            ->mergeCells('T4:T5');
 
         // Miscellaneous glyphs, UTF-8
 
@@ -431,6 +463,14 @@ class report extends CI_Controller
             $kage = $netto - $value->tmb_netto_rls;
             $percent = $kage / $netto * 100;
             $count = $count + 1;
+
+            if ($value->completion == 1) {
+                $completion = "";
+            } elseif ($value->completion == 2) {
+                $completion = "";
+            } elseif ($value->completion == 3) {
+                $completion = "R";
+            }
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $i, $count)
@@ -450,7 +490,9 @@ class report extends CI_Controller
                 ->setCellValue('O' . $i, $netto)
                 ->setCellValue('P' . $i, $kage)
                 ->setCellValue('Q' . $i, number_format($percent, 2) . "%")
-                ->setCellValue('R' . $i, $value->NoPO_Split);
+                ->setCellValue('R' . $i, $value->NoPO_Split)
+                ->setCellValue('R' . $i, $value->Type_Wb)
+                ->setCellValue('R' . $i, $completion);
             $i++;
 
             //      $spreadsheet->setActiveSheetIndex(0)->setCellValue('J' . $i, 'TOTAL');
@@ -543,7 +585,11 @@ class report extends CI_Controller
             ->setCellValue('P5', '(Kg/Ltr)')
             ->setCellValue('Q5', '(%)')
             ->setCellValue('R4', 'SPLIT PO')
-            ->mergeCells('R4:R5');
+            ->mergeCells('R4:R5')
+            ->setCellValue('S4', 'WB')
+            ->mergeCells('S4:S5')
+            ->setCellValue('T4', 'R')
+            ->mergeCells('T4:T5');
 
         // Miscellaneous glyphs, UTF-8
 
@@ -558,6 +604,14 @@ class report extends CI_Controller
             $kage = $netto - $value->tmb_netto_rls;
             $percent = $kage / $netto * 100;
             $count = $count + 1;
+
+            if ($value->completion == 1) {
+                $completion = "";
+            } elseif ($value->completion == 2) {
+                $completion = "";
+            } elseif ($value->completion == 3) {
+                $completion = "R";
+            }
 
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $i, $count)
@@ -577,7 +631,9 @@ class report extends CI_Controller
                 ->setCellValue('O' . $i, $netto)
                 ->setCellValue('P' . $i, $kage)
                 ->setCellValue('Q' . $i, number_format($percent, 2) . "%")
-                ->setCellValue('R' . $i, ($value->NoPO_Split));
+                ->setCellValue('R' . $i, ($value->NoPO_Split))
+                ->setCellValue('S' . $i, ($value->Type_Wb))
+                ->setCellValue('T' . $i, ($completion));
             $i++;
 
             //      $spreadsheet->setActiveSheetIndex(0)->setCellValue('J' . $i, 'TOTAL');
@@ -587,7 +643,7 @@ class report extends CI_Controller
         foreach ($sheet->getColumnIterator() as $column) {
             $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-        $sheet->getStyle('A:R')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:T')->getAlignment()->setHorizontal('center');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Receiving Material ' . date('d-m-Y'));

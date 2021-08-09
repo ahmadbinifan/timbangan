@@ -9,7 +9,7 @@
 
             margin-top: 1cm;
             margin-bottom: 2.5cm;
-            margin-left: 2cm;
+            margin-left: 1cm;
             margin-right: 1cm;
         }
 
@@ -161,6 +161,8 @@
                 <th rowspan="2">Density</th>
                 <th colspan="2">Balance(Kg/Ltr)</th>
                 <th rowspan="2">Split PO</th>
+                <th rowspan="2">WB</th>
+                <th rowspan="2">R</th>
             </tr>
             <tr>
                 <th>IN</th>
@@ -172,7 +174,7 @@
                 <th>(%)</th>
             </tr>
             <tr>
-                <th colspan="17"></th>
+                <th colspan="19"></th>
             </tr>
         </thead>
         <tbody>
@@ -187,10 +189,19 @@
             foreach ($more as $value) {
                 $count = $count + 1;
                 $netto = ($value['brt_1']) - ($value['brt_2']);
+                if ($value['brt_2'] == null) {
+                    $netto = ($value['brt_1'] * 0);
+                }
+
                 $kage = $netto - $value['tmb_netto_rls'];
+                if ($value['brt_2'] == null) {
+                    $kage = 0 * $value['tmb_netto_rls'];
+                }
 
                 if ($kage > 0) {
                     $percent =  0 - $kage / $value['tmb_netto_rls'] * 100;
+                } elseif ($kage == 0) {
+                    $percent = 0;
                 } else {
                     $percent = 0 -  $kage /  $value['tmb_netto_rls'] * 100;
                 }
@@ -205,6 +216,14 @@
                     $totalPers = 0 - $totalKage / $totalSupp * 100;
                 }
                 $topers = number_format($totalPers, 2);
+
+                if ($value['completion'] == 1) {
+                    $completion = "";
+                } elseif ($value['completion'] == 2) {
+                    $completion = "";
+                } elseif ($value['completion'] == 3) {
+                    $completion = "R";
+                }
 
             ?>
                 <tr>
@@ -225,13 +244,15 @@
                     <td><?= $kage ?> </td>
                     <td><?= $persen . "%" ?> </td>
                     <td><?= $value['NoPO_Split'] ?></td>
+                    <td><?= $value['Type_Wb'] ?></td>
+                    <td><?= $completion ?></td>
                 </tr>
 
         </tbody>
     <?php } ?>
     <tfoot>
         <tr>
-            <td colspan="17"></td>
+            <td colspan="19"></td>
         </tr>
         <tr>
             <td colspan="10" align="left">TOTAL</td>
@@ -240,7 +261,7 @@
             <td colspan="2"></td>
             <td><?= number_format($totalKage) ?></td>
             <td><?= $topers . "%" ?></td>
-            <td></td>
+            <td colspan="3"></td>
             <!-- <td colspan="16" align="left">Total</td>
             <td colspan="16" align="left">Total</td> -->
         </tr>
@@ -251,7 +272,7 @@
     $balanceFooter = $totalNetto - $header['Qty_PO'];
     $percentFooter =  $balanceFooter / $totalNetto * 100;
     ?>
-    <p>Total Received : <?= number_format($totalNetto) ?> Kg/Ltr <br>
+    <p>Note<span class="tab" style="margin-left:42px ;"></span> : R = Reject <br>Total Received : <?= number_format($totalNetto) ?> Kg/Ltr <br>
         Balance <span class="tab" style="margin-left:26px ;"></span> : <?= number_format(abs($balanceFooter)) ?> Kg/Ltr
         <?php if ($balanceFooter < 0) {
             echo "(Less)";

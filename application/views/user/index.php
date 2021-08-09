@@ -34,10 +34,11 @@
                                     <th>Pdf</th>
                                     <th>Excel</th>
                                     <th>Periode</th>
-                                    <th>dap</th>
-                                    <th>dsip</th>
-                                    <th>penerimaan</th>
-                                    <th>pengeluaran</th>
+                                    <th>Dap</th>
+                                    <th>Dsip</th>
+                                    <th>Penerimaan</th>
+                                    <th>Pengeluaran</th>
+                                    <th>Reject</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -152,6 +153,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Reject</label>
+                            <div class="col-md-3 col-6">
+                                <select name="reject">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row float-right">
                             <button class="btn btn-info mr-2" type="submit">Submit</button>
                             <button class="btn btn-danger" onclick="$('#modalAdd').modal('hide');">Cancel</button>
@@ -185,12 +196,6 @@
                             <label class="col-md-3">Fullname</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="fullname" placeholder="Fullname" onkeypress="return /^[A-Z ]*$/i.test(event.key)" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-6 col-md-3">Password</label>
-                            <div class="col-6 col-md-9">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -255,6 +260,16 @@
                             <label class="col-md-3 col-6">Pengeluaran</label>
                             <div class="col-md-3 col-6">
                                 <select name="pengeluaran" id="pengeluaran">
+                                    <option value="">Choose</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 col-6">Reject</label>
+                            <div class="col-md-3 col-6">
+                                <select name="reject">
                                     <option value="">Choose</option>
                                     <option value="0">No</option>
                                     <option value="1">Yes</option>

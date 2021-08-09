@@ -81,12 +81,14 @@
                                 <th>ContainerType</th>
                                 <th>Split</th>
                                 <th>No.SplitPO</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
